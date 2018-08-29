@@ -1,0 +1,6 @@
+C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\TessaractTemplates\bin\Debug\TessaractTemplates.dll
+C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\TessaractTemplates\bin\Debug\TessaractTemplates.pdb
+C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\TessaractTemplates\obj\Debug\TessaractTemplates.csprojAssemblyReference.cache
+C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\TessaractTemplates\obj\Debug\TessaractTemplates.csproj.CoreCompileInputs.cache
+C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\TessaractTemplates\obj\Debug\TessaractTemplates.dll
+C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\TessaractTemplates\obj\Debug\TessaractTemplates.pdb

@@ -201,7 +201,6 @@
             this.statusStrip2.Size = new System.Drawing.Size(224, 22);
             this.statusStrip2.TabIndex = 11;
             this.statusStrip2.Text = "statusStrip2";
-            this.statusStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStrip2_ItemClicked);
             // 
             // Form1
             // 
@@ -216,7 +215,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.MouseCaptureChanged += new System.EventHandler(this.Form1_MouseCaptureChanged);
             this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

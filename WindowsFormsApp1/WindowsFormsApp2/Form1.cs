@@ -18,6 +18,8 @@ namespace WindowsFormsApp2
         Rectangle rec = new Rectangle();
         List<OcrImage> images = new List<OcrImage>();
         List<Rectangle> recs = new List<Rectangle>();
+        List<Rectangle> identificationRecs = new List<Rectangle>();
+
         public Form1()
         {
             InitializeComponent();
@@ -66,8 +68,17 @@ namespace WindowsFormsApp2
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            recs.Add(rec);
-            DrawRectangles();
+            if (e.Button == MouseButtons.Right)
+            {
+                identificationRecs.Add(rec);
+            }
+            else
+            {
+                recs.Add(rec);
+            }
+
+            DrawRectangles(recs, Color.Red);
+            DrawIdentifications(identificationRecs, Color.Purple);
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -80,17 +91,29 @@ namespace WindowsFormsApp2
                     pictureBox1.CreateGraphics().DrawRectangle(pen, rec);
                 }
             }
+            else if (e.Button == MouseButtons.Right)
+            {
+                rec = new Rectangle(rec.X, rec.Y, e.Location.X - rec.X, e.Location.Y - rec.Y);
+                using (Pen pen = new Pen(Color.Purple, 2))
+                {
+                    pictureBox1.CreateGraphics().DrawRectangle(pen, rec);
+                }
+            }
         }
 
         private void btnIdentify_Click(object sender, EventArgs e)
         {
             try
             {
+                //Identify a Template
+
+
                 foreach (OcrImage ocrImage in images)
                 {
                     pictureBox1.Image = ocrImage.GetImage();
                     pictureBox1.Refresh();
-                    DrawRectangles();
+                    DrawRectangles(recs, Color.Red);
+                    DrawIdentifications(identificationRecs, Color.Purple);
                     UpdateStatusBar("Processing Image... ");
                     Application.DoEvents();
                     var data = ocrImage.IdentifyData(recs);
@@ -121,17 +144,21 @@ namespace WindowsFormsApp2
             }
         }
 
-        private void DrawRectangles()
+        private void DrawIdentifications(IEnumerable<Rectangle> rectangles, Color penColor)
         {
-            pictureBox1.Refresh();
-            foreach (var r in recs)
+            foreach (var r in rectangles)
             {
-                using (Pen pen = new Pen(Color.Red, 2))
+                using (Pen pen = new Pen(penColor, 2))
                 {
                     pictureBox1.CreateGraphics().DrawRectangle(pen, r);
                 }
             }
-            
+        }
+
+        private void DrawRectangles(IEnumerable<Rectangle> rectangles, Color penColor)
+        {
+            pictureBox1.Refresh();
+            DrawIdentifications(rectangles, penColor);
         }
 
         private void btnUploadPdf_Click(object sender, EventArgs e)
@@ -189,7 +216,7 @@ namespace WindowsFormsApp2
 
         private void btnCreateTemplate_Click(object sender, EventArgs e)
         {
-            var frm = new InputDialogBox(recs);
+            var frm = new InputDialogBox(recs, images[0].GetImage().ToByteArray(), identificationRecs);
             frm.ShowDialog();
             LoadTemplates();
         }
@@ -200,7 +227,8 @@ namespace WindowsFormsApp2
             var d = Templates.GetTemplate(cboTemplates.Text.ToString());
             var data = Newtonsoft.Json.JsonConvert.DeserializeObject<Rectangle[]>(d);
             recs.AddRange(data);
-            DrawRectangles();
+            DrawRectangles(recs, Color.Red);
+            DrawIdentifications(identificationRecs, Color.Purple);
         }
 
         private void employeeRegisterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -220,15 +248,6 @@ namespace WindowsFormsApp2
             }
         }
 
-        private void Form1_MouseCaptureChanged(object sender, EventArgs e)
-        {
-            DrawRectangles();
-        }
-
-        private void statusStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
     }
 
 
