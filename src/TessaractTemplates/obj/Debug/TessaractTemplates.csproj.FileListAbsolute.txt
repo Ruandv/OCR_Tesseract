@@ -10,3 +10,9 @@ E:\SourceCode\Git\OCR_Tesseract\WindowsFormsApp1\TessaractTemplates\obj\Debug\Te
 E:\SourceCode\Git\OCR_Tesseract\WindowsFormsApp1\TessaractTemplates\obj\Debug\TessaractTemplates.csproj.CoreCompileInputs.cache
 E:\SourceCode\Git\OCR_Tesseract\WindowsFormsApp1\TessaractTemplates\obj\Debug\TessaractTemplates.dll
 E:\SourceCode\Git\OCR_Tesseract\WindowsFormsApp1\TessaractTemplates\obj\Debug\TessaractTemplates.pdb
+E:\SourceCode\Git\OCR_Tesseract\src\TessaractTemplates\bin\Debug\TessaractTemplates.dll
+E:\SourceCode\Git\OCR_Tesseract\src\TessaractTemplates\bin\Debug\TessaractTemplates.pdb
+E:\SourceCode\Git\OCR_Tesseract\src\TessaractTemplates\obj\Debug\TessaractTemplates.csprojAssemblyReference.cache
+E:\SourceCode\Git\OCR_Tesseract\src\TessaractTemplates\obj\Debug\TessaractTemplates.csproj.CoreCompileInputs.cache
+E:\SourceCode\Git\OCR_Tesseract\src\TessaractTemplates\obj\Debug\TessaractTemplates.dll
+E:\SourceCode\Git\OCR_Tesseract\src\TessaractTemplates\obj\Debug\TessaractTemplates.pdb

@@ -1,0 +1,5 @@
+E:\SourceCode\Git\OCR_Tesseract\Src\IntegrationContracts\bin\Debug\IntegrationContracts.dll
+E:\SourceCode\Git\OCR_Tesseract\Src\IntegrationContracts\bin\Debug\IntegrationContracts.pdb
+E:\SourceCode\Git\OCR_Tesseract\Src\IntegrationContracts\obj\Debug\IntegrationContracts.csproj.CoreCompileInputs.cache
+E:\SourceCode\Git\OCR_Tesseract\Src\IntegrationContracts\obj\Debug\IntegrationContracts.dll
+E:\SourceCode\Git\OCR_Tesseract\Src\IntegrationContracts\obj\Debug\IntegrationContracts.pdb

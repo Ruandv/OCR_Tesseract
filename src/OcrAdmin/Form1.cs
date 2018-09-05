@@ -181,49 +181,50 @@ namespace WindowsFormsApp2
             if (res == DialogResult.OK)
             {
                 var d = dialog.FileName;
-                var reader = new PdfReader(d);
-                int nop = reader.NumberOfPages;
-                reader.Dispose();
-                for (int i = 1; i <= nop; i++)
-                {
-                    UpdateStatusBar(String.Format("Extracting page {0} of {1}", i, nop));
-                    ExtractPages(d, Path.Combine(ConfigurationManager.AppSettings.Get("ApplicationDirectory"), Guid.NewGuid().ToString()) + ".pdf", i, 1);
-                }
-                LoadImages();
+                
+                //var reader = new PdfReader(d);
+                //int nop = reader.NumberOfPages;
+                //reader.Dispose();
+                //for (int i = 1; i <= nop; i++)
+                //{
+                //    UpdateStatusBar(String.Format("Extracting page {0} of {1}", i, nop));
+                //    ExtractPages(d, Path.Combine(ConfigurationManager.AppSettings.Get("ApplicationDirectory"), Guid.NewGuid().ToString()) + ".pdf", i, 1);
+                //}
+                //LoadImages();
             }
         }
 
-        private void ExtractPages(string sourcePDFpath, string outputPDFpath, int startpage, int endpage)
-        {
-            PdfReader reader = null;
-            iTextSharp.text.Document sourceDocument = null;
-            PdfCopy pdfCopyProvider = null;
-            PdfImportedPage importedPage = null;
+        //private void ExtractPages(string sourcePDFpath, string outputPDFpath, int startpage, int endpage)
+        //{
+        //    PdfReader reader = null;
+        //    iTextSharp.text.Document sourceDocument = null;
+        //    PdfCopy pdfCopyProvider = null;
+        //    PdfImportedPage importedPage = null;
 
-            PdfReader.unethicalreading = true;
-            reader = new PdfReader(sourcePDFpath);
+        //    PdfReader.unethicalreading = true;
+        //    reader = new PdfReader(sourcePDFpath);
 
-            sourceDocument = new iTextSharp.text.Document(reader.GetPageSizeWithRotation(startpage));
-            pdfCopyProvider = new PdfCopy(sourceDocument, new FileStream(outputPDFpath, FileMode.Create));
-            sourceDocument.Open();
+        //    sourceDocument = new iTextSharp.text.Document(reader.GetPageSizeWithRotation(startpage));
+        //    pdfCopyProvider = new PdfCopy(sourceDocument, new FileStream(outputPDFpath, FileMode.Create));
+        //    sourceDocument.Open();
 
 
-            for (int i = startpage; i < startpage + endpage; i++)
-            {
-                Application.DoEvents();
-                try
-                {
-                    importedPage = pdfCopyProvider.GetImportedPage(reader, i);
-                    pdfCopyProvider.AddPage(importedPage);
-                }
-                catch (System.ArgumentException ex)
-                {
-                    throw ex;
-                }
-            }
-            sourceDocument.Close();
-            reader.Close();
-        }
+        //    for (int i = startpage; i < startpage + endpage; i++)
+        //    {
+        //        Application.DoEvents();
+        //        try
+        //        {
+        //            importedPage = pdfCopyProvider.GetImportedPage(reader, i);
+        //            pdfCopyProvider.AddPage(importedPage);
+        //        }
+        //        catch (System.ArgumentException ex)
+        //        {
+        //            throw ex;
+        //        }
+        //    }
+        //    sourceDocument.Close();
+        //    reader.Close();
+        //}
 
         private void btnCreateTemplate_Click(object sender, EventArgs e)
         {
