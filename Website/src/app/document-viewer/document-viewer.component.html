@@ -1,0 +1,8 @@
+<div class="menu">
+  <div class="btn btn-sm btn-secondary" (click)="clear()">Clear</div>
+  <div class="btn btn-sm btn-secondary" (click)="zoomIn()">Zoom +</div>
+  <div class="btn btn-sm btn-secondary" (click)="zoomOut()">Zoom -</div>
+</div>
+<div class="canvasHolder" [ngStyle]="{'max-width': width*2 +'px','max-height': height*2 +'px'}">
+  <canvas #canvas [ngStyle]="{'background-image': 'url(' + source + ')'}"></canvas>
+</div>

@@ -11,9 +11,10 @@ export class AppComponent implements OnInit {
   title = 'Website';
 
   ngOnInit(): void {
-    this.service.getDocuments().subscribe(x=> {
-      this.data$ =x;
-    });
+    // this.service.getDocuments().subscribe(x=> {
+    //   this.data$ =x;
+    // });
   }
+
   constructor(private service: DocumentService) {}
 }

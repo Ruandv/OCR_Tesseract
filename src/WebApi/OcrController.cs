@@ -21,7 +21,6 @@ namespace WebApi
         [Route("GetDocuments")]
         public IHttpActionResult Get()
         {
-
             return Ok(new string[] { "Get Good", DateTime.UtcNow.ToString() });
         }
 
