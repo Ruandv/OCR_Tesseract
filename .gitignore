@@ -10,3 +10,5 @@
 /packages
 /src/WebApi/bin
 /src/WebApi/obj
+obj
+bin
