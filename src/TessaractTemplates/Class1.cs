@@ -3,6 +3,7 @@ using System.Drawing;
 
 namespace TessaractTemplates
 {
+       //-----------------------------------------------------------------------------------------
     public class TessaractTemplate
     {
         public string Name { get;set;}

@@ -7,7 +7,7 @@ namespace DatabaseLayer
     {
         public DbSet<OcrTemplate> OcrTemplates { get; set; }
         public DbSet<Employee> Employees { get; set; }
-
+        public DbSet<OcrDocumentPage> Page { get; set; }
         public OcrDatabaseContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
             InitializeDatabase();

@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using Autofac.Core;
 using MassTransit;
 using System;
+using System.Reflection;
 
 namespace WebApi
 {

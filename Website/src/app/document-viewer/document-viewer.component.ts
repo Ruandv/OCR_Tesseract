@@ -26,7 +26,9 @@ export class DocumentViewerComponent implements AfterViewInit {
   private endPos: any;
   private startPos: any;
   private cx: CanvasRenderingContext2D;
-
+  private points = [];
+  private zoomCounter = 1;
+  private point: { x: any; y: any; };
   constructor() {}
 
   ngAfterViewInit(): void {
@@ -47,28 +49,55 @@ export class DocumentViewerComponent implements AfterViewInit {
   }
 
   private captureEvents(canvasEl: HTMLCanvasElement) {
-    const down$ = fromEvent(document, "mousedown");
-    const up$ = fromEvent(document, "mouseup");
-
+    const down$ = fromEvent(canvasEl, "mousedown");
+    const up$ = fromEvent(canvasEl, "mouseup");
+    const move$ = fromEvent(canvasEl, "mousemove");
+    const showPoint = ev => {
+      this.point = { x: ev.layerX, y: ev.layerY };
+    };
     const log = x => {
       const rect = canvasEl.getBoundingClientRect();
 
       console.log(x.type);
       if (x.type === "mouseup") {
         this.endPos = {
-          x: x.clientX - rect.left,
-          y: x.clientY - rect.top
+          x: x.layerX /this.zoomCounter,
+          y: x.layerY/this.zoomCounter
         };
-        this.drawOnCanvas(this.startPos, this.endPos);
+        this.points.push({ start: this.startPos, end: this.endPos });
+        this.drawOnCanvasPoints();
       } else {
         this.startPos = {
-          x: x.clientX - rect.left,
-          y: x.clientY - rect.top
+          x: x.layerX/this.zoomCounter ,
+          y: x.layerY/this.zoomCounter
         };
       }
     };
     down$.subscribe(log);
     up$.subscribe(log);
+    move$.subscribe(showPoint);
+  }
+
+  drawOnCanvasPoints() {
+    // incase the context is not set
+    if (!this.cx) {
+      return;
+    }
+    this.points.forEach(point => {
+      this.cx.beginPath();
+
+      // draws a line from the start pos until the current position
+      this.cx.rect(
+        point.start.x * this.zoomCounter,
+        point.start.y * this.zoomCounter,
+        point.end.x * this.zoomCounter - point.start.x * this.zoomCounter,
+        point.end.y * this.zoomCounter - point.start.y * this.zoomCounter
+      );
+
+      // strokes the current path with the styles we set earlier
+      this.cx.stroke();
+    });
+    // start our drawing path
   }
 
   drawOnCanvas(
@@ -96,6 +125,7 @@ export class DocumentViewerComponent implements AfterViewInit {
   }
 
   zoomIn(): void {
+    this.zoomCounter += 1;
     this.cx.canvas.width += this.width;
     this.cx.canvas.height += this.height;
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
@@ -104,9 +134,11 @@ export class DocumentViewerComponent implements AfterViewInit {
     // set the width and height
     canvasEl.width = this.cx.canvas.width;
     canvasEl.height = this.cx.canvas.height;
+    this.drawOnCanvasPoints();
   }
 
   zoomOut(): void {
+    this.zoomCounter -= 1;
     this.cx.canvas.width -= this.width;
     this.cx.canvas.height -= this.height;
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
@@ -115,9 +147,11 @@ export class DocumentViewerComponent implements AfterViewInit {
     // set the width and height
     canvasEl.width = this.cx.canvas.width;
     canvasEl.height = this.cx.canvas.height;
+    this.drawOnCanvasPoints();
   }
 
   clear(): void {
     this.cx.clearRect(0, 0, this.cx.canvas.width, this.cx.canvas.height);
+    this.points = [];
   }
 }

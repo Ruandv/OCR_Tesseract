@@ -50,6 +50,7 @@
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="DBInitializer.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="OcrPage.cs" />
     <Compile Include="OcrTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -86,6 +86,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\BusinessLayer.csproj">
+      <Project>{88EBB7BE-8F0E-4302-B637-6B8517C374A1}</Project>
+      <Name>BusinessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IntegrationContracts\IntegrationContracts.csproj">
       <Project>{980703A9-10AA-4F24-A850-693DFAD4AA5C}</Project>
       <Name>IntegrationContracts</Name>

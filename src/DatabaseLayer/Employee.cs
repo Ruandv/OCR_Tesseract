@@ -1,12 +1,13 @@
 ﻿namespace DatabaseLayer
 {
+
     public class Employee
     {
         public Employee()
         {
         }
 
-        public Employee(string code, string name, string identityNumber,string emailAddress)
+        public Employee(string code, string name, string identityNumber, string emailAddress)
         {
             Code = code;
             Name = name;
