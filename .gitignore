@@ -8,3 +8,5 @@
 /WindowsFormsApp1/WindowsFormsApp2/bin
 /.vs
 /packages
+/src/WebApi/bin
+/src/WebApi/obj
