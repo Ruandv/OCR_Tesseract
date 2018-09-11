@@ -1,9 +1,0 @@
-C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\Database\bin\Debug\netcoreapp2.0\Database.deps.json
-C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\Database\bin\Debug\netcoreapp2.0\Database.dll
-C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\Database\bin\Debug\netcoreapp2.0\Database.pdb
-C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\Database\obj\Debug\netcoreapp2.0\Database.csprojAssemblyReference.cache
-C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\Database\obj\Debug\netcoreapp2.0\Database.csproj.CoreCompileInputs.cache
-C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\Database\obj\Debug\netcoreapp2.0\Database.AssemblyInfoInputs.cache
-C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\Database\obj\Debug\netcoreapp2.0\Database.AssemblyInfo.cs
-C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\Database\obj\Debug\netcoreapp2.0\Database.dll
-C:\Users\RdeVilliers\source\repos\WindowsFormsApp1\Database\obj\Debug\netcoreapp2.0\Database.pdb

@@ -12,3 +12,12 @@
 /src/WebApi/obj
 obj
 bin
+/src/OcrAdmin/*
+/src/IntegrationContracts/obj
+/src/IntegrationContracts/bin
+/src/DatabaseLayer/obj
+/src/DatabaseLayer/bin
+/src/Database/obj
+/src/Database/bin
+/src/TessaractTemplates/obj
+/src/TessaractTemplates/bin
