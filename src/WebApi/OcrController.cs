@@ -1,6 +1,7 @@
 ﻿using IntegrationContracts;
 using MassTransit;
 using System;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace WebApi
@@ -8,12 +9,12 @@ namespace WebApi
     [RoutePrefix("api/Ocr")]
     public class OcrController : ApiController
     {
-        public IBus Bus { get; }
-
+        public IBusControl Bus { get; }
+        public Uri uri = new Uri("rabbitmq://localhost/OCREndpoint_queue");
         public OcrController(IBusControl bus)
         {
             Bus = bus;
-            Bus.GetSendEndpoint(new Uri("rabbitmq://localhost/OCREndpoint_queue"));
+            //ep = Bus.GetSendEndpoint(new Uri("rabbitmq://localhost/OCREndpoint_queue"));
         }
 
 
@@ -26,13 +27,26 @@ namespace WebApi
 
         [HttpPost]
         [Route("UploadDocument")]
-        public IHttpActionResult UploadDocument(UploadDocumentInfo documentPath)
+        public async Task<IHttpActionResult> UploadDocument(UploadDocumentInfo documentPath)
         {
-            Bus.Send(new UploadPdfDocument()
+            var requestTimeout = TimeSpan.FromSeconds(30);
+            var document = new UploadPdfDocument()
             {
                 DocumentLocation = documentPath.DocumentPath
-            });
-            return Ok("Post Good " + documentPath);
+            };
+
+            IRequestClient<UploadPdfDocument, PdfDocumentUploaded> c = new MessageRequestClient<UploadPdfDocument, PdfDocumentUploaded>(Bus, uri, requestTimeout);
+            try
+            {
+                var a = await c.Request(document);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+             
+            return Ok("Post Good " );
         }
     }
 }

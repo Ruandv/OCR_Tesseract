@@ -8,24 +8,37 @@ using MassTransit;
 
 namespace OCREndpoint.Handlers
 {
-    public class DocumentConsumer : IConsumer<PdfDocumentUploaded>,
+    public class DocumentConsumer : /*IConsumer<PdfDocumentUploaded>,*/
         IConsumer<UploadPdfDocument>
     {
-        public async Task Consume(ConsumeContext<PdfDocumentUploaded> context)
-        {
-            var reader = new PdfReader(context.Message.DocumentLocation);
-            int nop = reader.NumberOfPages;
-            reader.Dispose();
-            for (int i = 1; i <= nop; i++)
-            {
-                ExtractPages(context.Message.DocumentLocation, Path.Combine(ConfigurationManager.AppSettings.Get("ApplicationDirectory"), Guid.NewGuid().ToString()) + ".pdf", i, 1);
-            }
-        }
+
+
+        //public async Task Consume(ConsumeContext<PdfDocumentUploaded> context)
+        //{
+        //    var reader = new PdfReader(context.Message.DocumentLocation);
+        //    int nop = reader.NumberOfPages;
+        //    reader.Dispose();
+        //    for (int i = 1; i <= nop; i++)
+        //    {
+        //        ExtractPages(context.Message.DocumentLocation, Path.Combine(ConfigurationManager.AppSettings.Get("ApplicationDirectory"), Guid.NewGuid().ToString()) + ".pdf", i, 1);
+        //    }
+        //}
 
         public async Task Consume(ConsumeContext<UploadPdfDocument> context)
         {
-            Console.Write("BLAHHH");
+            Console.WriteLine("Message Received from " + context.ResponseAddress);
+
+            var reader = new PdfReader(context.Message.DocumentLocation);
+            int nop = reader.NumberOfPages;
+            reader.Dispose();
+            //for (int i = 1; i <= nop; i++)
+            //{
+            //    ExtractPages(context.Message.DocumentLocation, Path.Combine(ConfigurationManager.AppSettings.Get("ApplicationDirectory"), Guid.NewGuid().ToString()) + ".pdf", i, 1);
+            //}
+            var res = new PdfDocumentUploaded() { DocumentLocation = "Work Done" };
+            await context.RespondAsync(res, typeof(PdfDocumentUploaded));
         }
+
 
         private void ExtractPages(string sourcePDFpath, string outputPDFpath, int startpage, int endpage)
         {
@@ -42,10 +55,8 @@ namespace OCREndpoint.Handlers
             pdfCopyProvider = new PdfCopy(sourceDocument, new FileStream(outputPDFpath, FileMode.Create));
             sourceDocument.Open();
 
-
             for (int i = startpage; i < startpage + endpage; i++)
             {
-                //Application.DoEvents();
                 try
                 {
                     importedPage = pdfCopyProvider.GetImportedPage(reader, i);
