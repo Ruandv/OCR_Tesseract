@@ -26,8 +26,8 @@ export class DocumentService {
 
     const options = new RequestOptions();
     options.headers = new Headers();
-    options.headers.set("enctype", "multipart/form-data");
-
+    //options.headers.set("enctype", "multipart/form-data");
+    //options.headers.set("Content-Type" ,"application/x-www-form-urlencoded");
     return this.http.post(this.webApiUrl + "UploadDocument", data, options);
   }
 }
