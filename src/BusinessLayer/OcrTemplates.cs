@@ -23,9 +23,9 @@ namespace BusinessLayer
             return db.OcrTemplates.ToArray();
         }
 
-        public string GetTemplate(string description)
+        public OcrTemplate GetTemplate(string description)
         {
-            return db.OcrTemplates.First(x => x.TemplateDescription == description).Data;
+            return db.OcrTemplates.First(x => x.TemplateDescription == description);
         }
     }
 }
