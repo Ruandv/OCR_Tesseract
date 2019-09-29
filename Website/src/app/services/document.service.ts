@@ -27,10 +27,12 @@ export class DocumentService {
 
     const options = new RequestOptions();
     options.headers = new Headers();
+ 
     options.headers.set("enctype", "multipart/form-data");
     options.headers.set("content-type","application/x-www-form-urlencoded");
     options.headers.set("Access-Control-Allow-Origin","*");
     options.headers.set("Access-Control-Allow-Headers","*")
+ 
     return this.http.post(this.webApiUrl + "UploadDocument", data, options);
   }
 }

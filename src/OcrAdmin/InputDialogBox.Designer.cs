@@ -42,7 +42,7 @@
             this.cmdOk.TabIndex = 0;
             this.cmdOk.Text = "Ok";
             this.cmdOk.UseVisualStyleBackColor = true;
-            this.cmdOk.Click += new System.EventHandler(this.cmdOk_Click);
+            this.cmdOk.Click += new System.EventHandler(this.CmdOk_Click);
             // 
             // cmdCancel
             // 
@@ -52,7 +52,7 @@
             this.cmdCancel.TabIndex = 1;
             this.cmdCancel.Text = "Cancel";
             this.cmdCancel.UseVisualStyleBackColor = true;
-            this.cmdCancel.Click += new System.EventHandler(this.cmdCancel_Click);
+            this.cmdCancel.Click += new System.EventHandler(this.CmdCancel_Click);
             // 
             // txtTemplateName
             // 

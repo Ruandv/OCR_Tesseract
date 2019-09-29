@@ -3,6 +3,7 @@ using MassTransit;
 using System;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace WebApi
 {

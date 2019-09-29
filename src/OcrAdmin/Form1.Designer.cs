@@ -96,7 +96,7 @@
             this.cboTemplates.Size = new System.Drawing.Size(224, 21);
             this.cboTemplates.TabIndex = 8;
             this.cboTemplates.ValueMember = "TemplateDescription";
-            this.cboTemplates.SelectedIndexChanged += new System.EventHandler(this.cboTemplates_SelectedIndexChanged);
+            this.cboTemplates.SelectedIndexChanged += new System.EventHandler(this.CboTemplates_SelectedIndexChanged);
             // 
             // btnCreateTemplate
             // 
@@ -107,7 +107,7 @@
             this.btnCreateTemplate.TabIndex = 7;
             this.btnCreateTemplate.Text = "Create Template";
             this.btnCreateTemplate.UseVisualStyleBackColor = true;
-            this.btnCreateTemplate.Click += new System.EventHandler(this.btnCreateTemplate_Click);
+            this.btnCreateTemplate.Click += new System.EventHandler(this.BtnCreateTemplate_Click);
             // 
             // btnUploadPdf
             // 
@@ -118,7 +118,7 @@
             this.btnUploadPdf.TabIndex = 6;
             this.btnUploadPdf.Text = "Upload Pdf";
             this.btnUploadPdf.UseVisualStyleBackColor = true;
-            this.btnUploadPdf.Click += new System.EventHandler(this.btnUploadPdf_Click);
+            this.btnUploadPdf.Click += new System.EventHandler(this.BtnUploadPdf_Click);
             // 
             // btnIdentify
             // 
@@ -129,7 +129,7 @@
             this.btnIdentify.TabIndex = 4;
             this.btnIdentify.Text = "Identify";
             this.btnIdentify.UseVisualStyleBackColor = true;
-            this.btnIdentify.Click += new System.EventHandler(this.btnIdentify_Click);
+            this.btnIdentify.Click += new System.EventHandler(this.BtnIdentify_Click);
             // 
             // statusStrip1
             // 
@@ -173,9 +173,9 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseDown);
+            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseUp);
             // 
             // menuStrip1
             // 
@@ -192,7 +192,7 @@
             this.employeeRegisterToolStripMenuItem.Name = "employeeRegisterToolStripMenuItem";
             this.employeeRegisterToolStripMenuItem.Size = new System.Drawing.Size(157, 20);
             this.employeeRegisterToolStripMenuItem.Text = "Update Employee Register";
-            this.employeeRegisterToolStripMenuItem.Click += new System.EventHandler(this.employeeRegisterToolStripMenuItem_Click);
+            this.employeeRegisterToolStripMenuItem.Click += new System.EventHandler(this.EmployeeRegisterToolStripMenuItem_Click);
             // 
             // statusStrip2
             // 

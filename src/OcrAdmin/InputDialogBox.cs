@@ -21,7 +21,7 @@ namespace WindowsFormsApp2
             IdentificationRecs = identificationRecs;
         }
 
-        private void cmdOk_Click(object sender, EventArgs e)
+        private void CmdOk_Click(object sender, EventArgs e)
         {
             if (txtTemplateName.Text.Trim().Length > 0)
             {
@@ -31,7 +31,7 @@ namespace WindowsFormsApp2
             }
         }
 
-        private void cmdCancel_Click(object sender, EventArgs e)
+        private void CmdCancel_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
