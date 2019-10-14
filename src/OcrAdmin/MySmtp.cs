@@ -17,8 +17,6 @@ namespace WindowsFormsApp2
             client.Credentials = new System.Net.NetworkCredential("apikey", ConfigurationManager.AppSettings.Get("ApiKey"));
         }
 
-        //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
-
         public void Send(string toEmailAddress, string subject, string body, byte[] protectedDocument)
         {
             try
