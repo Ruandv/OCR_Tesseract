@@ -1,7 +1,10 @@
 ﻿using IntegrationContracts;
 using MassTransit;
 using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -12,9 +15,9 @@ namespace WebApi
     {
         public IBusControl Bus { get; }
         public Uri uri = new Uri("rabbitmq://localhost/OCREndpoint_queue");
-        public OcrController(IBusControl bus)
+        public OcrController()
         {
-            Bus = bus;
+
             //ep = Bus.GetSendEndpoint(new Uri("rabbitmq://localhost/OCREndpoint_queue"));
         }
 
@@ -28,26 +31,21 @@ namespace WebApi
 
         [HttpPost]
         [Route("UploadDocument")]
-        public async Task<IHttpActionResult> UploadDocument(UploadDocumentInfo documentPath)
+        public async Task<IHttpActionResult> UploadDocument()
         {
-            var requestTimeout = TimeSpan.FromSeconds(30);
-            var document = new UploadPdfDocument()
+            var httpRequest = HttpContext.Current.Request;
+            var postedFile = httpRequest.Files["File"];
+            //Create custom filename
+            if (postedFile != null)
             {
-                DocumentLocation = documentPath.DocumentPath
-            };
+                var imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
+                imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
 
-            IRequestClient<UploadPdfDocument, PdfDocumentUploaded> c = new MessageRequestClient<UploadPdfDocument, PdfDocumentUploaded>(Bus, uri, requestTimeout);
-            try
-            {
-                var a = await c.Request(document);
-            }
-            catch (Exception)
-            {
+                var filePath = "C:/Logs/Images/" + imageName;
+                postedFile.SaveAs(filePath);
 
-                throw;
             }
-             
-            return Ok("Post Good " );
+            return Ok("Post Good ");
         }
     }
 }
