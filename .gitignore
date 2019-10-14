@@ -21,3 +21,4 @@ bin
 /src/Database/bin
 /src/TessaractTemplates/obj
 /src/TessaractTemplates/bin
+/src/OcrAdmin/Configuration/AppSettings.config

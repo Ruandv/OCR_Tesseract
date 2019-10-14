@@ -6,18 +6,18 @@
         {
         }
 
-        public Employee(string code, string name, string identityNumber,string emailAddress)
+        public Employee(string dataField1, string dataField2, string pinCode,string emailAddress)
         {
-            Code = code;
-            Name = name;
-            IdentityNumber = identityNumber;
+            DataField1 = dataField1;
+            DataField2 = dataField2;
+            PinCode = pinCode;
             EmailAddress = emailAddress;
         }
 
         public int Id { get; set; }
-        public string Code { get; set; }
-        public string Name { get; set; }
-        public string IdentityNumber { get; set; }
+        public string DataField1 { get; set; }
+        public string DataField2 { get; set; }
+        public string PinCode { get; set; }
         public string EmailAddress { get; set; }
     }
 }

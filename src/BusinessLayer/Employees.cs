@@ -19,7 +19,7 @@ namespace BusinessLayer
 
         public Employee GetEmployee(string code, string name)
         {
-            return db.Employees.FirstOrDefault(x => x.Code == code && x.Name == name);
+            return db.Employees.First(x => x.DataField1 == code && x.DataField2 == name);
         }
 
     }

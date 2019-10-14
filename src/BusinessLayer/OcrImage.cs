@@ -10,7 +10,7 @@ namespace BusinessLayer
 {
     public interface ISmtpInfo
     {
-        void Send(byte[] protectedDocument);
+        void Send(string toEmailAddress, string subject, string body, byte[] protectedDocument);
     }
 
     public class OcrImage
@@ -87,14 +87,30 @@ namespace BusinessLayer
             }
             File.WriteAllBytes(Path.Combine(path, fileName) + ".pdf", ProtectedDocument);
         }
-        public void Send()
+
+        public void SaveFileAsError(string fileName)
+        {
+            string path = ConfigurationManager.AppSettings.Get("ErrorDirectory");
+
+            if (!path.EndsWith(@"\")) path += @"\";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            if (File.Exists(Path.Combine(path, fileName)))
+            {
+                File.Delete(Path.Combine(path, fileName));
+            }
+            File.WriteAllBytes(Path.Combine(path, fileName) + ".pdf", MyPdfImage);
+        }
+        public void Send(string emailAddress)
         {
             if (smtp == null)
             {
                 throw new NotSupportedException("Please supply a class that implements the ISmtpInfo Interface");
             }
-            smtp.Send(ProtectedDocument);
+            smtp.Send(emailAddress, "TEMPLATE NAME", "BLAHHHH", ProtectedDocument);
         }
+
         public IEnumerable<string> IdentifyData(IEnumerable<Rectangle> coOrdinates)
         {
             List<string> data = new List<string>();

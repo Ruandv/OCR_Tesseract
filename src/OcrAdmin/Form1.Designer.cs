@@ -30,10 +30,10 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.cboTemplates = new System.Windows.Forms.ComboBox();
             this.btnCreateTemplate = new System.Windows.Forms.Button();
-            this.btnUploadPdf = new System.Windows.Forms.Button();
             this.btnIdentify = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -41,8 +41,11 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uploadPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetIdentificationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.employeeRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.cropPDFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -68,7 +71,6 @@
             this.panel1.Controls.Add(this.listBox1);
             this.panel1.Controls.Add(this.cboTemplates);
             this.panel1.Controls.Add(this.btnCreateTemplate);
-            this.panel1.Controls.Add(this.btnUploadPdf);
             this.panel1.Controls.Add(this.btnIdentify);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 16);
@@ -76,14 +78,22 @@
             this.panel1.Size = new System.Drawing.Size(224, 683);
             this.panel1.TabIndex = 5;
             // 
+            // statusStrip2
+            // 
+            this.statusStrip2.Location = new System.Drawing.Point(0, 661);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(224, 22);
+            this.statusStrip2.TabIndex = 11;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
             // listBox1
             // 
             this.listBox1.DisplayMember = "Text";
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 90);
+            this.listBox1.Location = new System.Drawing.Point(0, 67);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(224, 593);
+            this.listBox1.Size = new System.Drawing.Size(224, 616);
             this.listBox1.TabIndex = 10;
             // 
             // cboTemplates
@@ -91,7 +101,7 @@
             this.cboTemplates.DisplayMember = "TemplateDescription";
             this.cboTemplates.Dock = System.Windows.Forms.DockStyle.Top;
             this.cboTemplates.FormattingEnabled = true;
-            this.cboTemplates.Location = new System.Drawing.Point(0, 69);
+            this.cboTemplates.Location = new System.Drawing.Point(0, 46);
             this.cboTemplates.Name = "cboTemplates";
             this.cboTemplates.Size = new System.Drawing.Size(224, 21);
             this.cboTemplates.TabIndex = 8;
@@ -101,24 +111,13 @@
             // btnCreateTemplate
             // 
             this.btnCreateTemplate.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCreateTemplate.Location = new System.Drawing.Point(0, 46);
+            this.btnCreateTemplate.Location = new System.Drawing.Point(0, 23);
             this.btnCreateTemplate.Name = "btnCreateTemplate";
             this.btnCreateTemplate.Size = new System.Drawing.Size(224, 23);
             this.btnCreateTemplate.TabIndex = 7;
             this.btnCreateTemplate.Text = "Create Template";
             this.btnCreateTemplate.UseVisualStyleBackColor = true;
             this.btnCreateTemplate.Click += new System.EventHandler(this.BtnCreateTemplate_Click);
-            // 
-            // btnUploadPdf
-            // 
-            this.btnUploadPdf.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnUploadPdf.Location = new System.Drawing.Point(0, 23);
-            this.btnUploadPdf.Name = "btnUploadPdf";
-            this.btnUploadPdf.Size = new System.Drawing.Size(224, 23);
-            this.btnUploadPdf.TabIndex = 6;
-            this.btnUploadPdf.Text = "Upload Pdf";
-            this.btnUploadPdf.UseVisualStyleBackColor = true;
-            this.btnUploadPdf.Click += new System.EventHandler(this.BtnUploadPdf_Click);
             // 
             // btnIdentify
             // 
@@ -180,12 +179,37 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.employeeRegisterToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.employeeRegisterToolStripMenuItem,
+            this.cropPDFToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1089, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uploadPDFToolStripMenuItem,
+            this.resetIdentificationToolStripMenuItem1});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // uploadPDFToolStripMenuItem
+            // 
+            this.uploadPDFToolStripMenuItem.Name = "uploadPDFToolStripMenuItem";
+            this.uploadPDFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uploadPDFToolStripMenuItem.Text = "Upload PDF";
+            this.uploadPDFToolStripMenuItem.Click += new System.EventHandler(this.UploadPDFToolStripMenuItem_Click);
+            // 
+            // resetIdentificationToolStripMenuItem1
+            // 
+            this.resetIdentificationToolStripMenuItem1.Name = "resetIdentificationToolStripMenuItem1";
+            this.resetIdentificationToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.resetIdentificationToolStripMenuItem1.Text = "Reset Identification";
+            this.resetIdentificationToolStripMenuItem1.Click += new System.EventHandler(this.ResetIdentificationToolStripMenuItem1_Click);
             // 
             // employeeRegisterToolStripMenuItem
             // 
@@ -194,13 +218,10 @@
             this.employeeRegisterToolStripMenuItem.Text = "Update Employee Register";
             this.employeeRegisterToolStripMenuItem.Click += new System.EventHandler(this.EmployeeRegisterToolStripMenuItem_Click);
             // 
-            // statusStrip2
+            // cropPDFToolStripMenuItem
             // 
-            this.statusStrip2.Location = new System.Drawing.Point(0, 661);
-            this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(224, 22);
-            this.statusStrip2.TabIndex = 11;
-            this.statusStrip2.Text = "statusStrip2";
+            this.cropPDFToolStripMenuItem.Name = "cropPDFToolStripMenuItem";
+            this.cropPDFToolStripMenuItem.Size = new System.Drawing.Size(12, 20);
             // 
             // Form1
             // 
@@ -236,7 +257,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnUploadPdf;
         private System.Windows.Forms.Button btnIdentify;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.Button btnCreateTemplate;
@@ -247,6 +267,10 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem employeeRegisterToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripMenuItem cropPDFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uploadPDFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetIdentificationToolStripMenuItem1;
     }
 }
 
