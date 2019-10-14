@@ -19,7 +19,6 @@ namespace BusinessLayer
         private string PdfImagePath;
         private byte[] MyPdfImage;
         private Image pngImage;
-        private Guid MyGuid;
         private byte[] ProtectedDocument;
         private ISmtpInfo smtp;
         public OcrImage(string pdfImagePath, ISmtpInfo smtp)
@@ -35,7 +34,6 @@ namespace BusinessLayer
 
         private void SetBasics(string pdfImagePath)
         {
-            MyGuid = Guid.NewGuid();
             PdfImagePath = pdfImagePath;
             MyPdfImage = File.ReadAllBytes(pdfImagePath);
             ConvertPdfToPng(MyPdfImage);
@@ -120,7 +118,7 @@ namespace BusinessLayer
                 img.SetResolution(300, 300);
                 foreach (Rectangle rec in coOrdinates)
                 {
-                    var ocr = new TesseractEngine(ConfigurationManager.AppSettings.Get("TessarecDirectory"), "eng", EngineMode.TesseractAndCube);
+                    var ocr = new TesseractEngine(ConfigurationManager.AppSettings.Get("TessarecDirectory"), "eng", EngineMode.Default);
                     var page = ocr.Process(img, new Rect(rec.X, rec.Y, rec.Width, rec.Height));
                     data.Add(page.GetText().Trim());
                     ocr.Dispose();

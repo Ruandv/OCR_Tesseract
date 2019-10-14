@@ -41,7 +41,7 @@ namespace WebApi
             {
                 var a = await c.Request(document);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw;
