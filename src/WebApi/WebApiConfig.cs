@@ -9,11 +9,8 @@ namespace WebApi
     {
         public static void Register(HttpConfiguration config)
         {
-            //var cors = new EnableCorsAttribute("http://localhost:53017", "*", "*");
             var cors = new EnableCorsAttribute("*", "*", "*");
-
             config.EnableCors(cors);// Web API configuration and services  
-            
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter());
             // Configure Web API to use only bearer token authentication.  
