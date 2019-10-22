@@ -11,15 +11,20 @@ namespace BusinessLayer
         {
         }
 
-        public void AddNewEmployee(string code, string name,string identityNumber, string emailAddress)
+        public void RemoveEmployees()
         {
-            db.Employees.Add(new Employee(code,name,identityNumber,emailAddress));
+            db.Employees.RemoveRange(db.Employees.Where(x => x.Id > 0));
+            db.SaveChanges();
+        }
+        public void AddNewEmployee(string code, string name, string identityNumber, string emailAddress)
+        {
+            db.Employees.Add(new Employee(code, name, identityNumber, emailAddress));
             db.SaveChanges();
         }
 
         public Employee GetEmployee(string code, string name)
         {
-            return db.Employees.First(x => x.DataField1 == code && x.DataField2 == name);
+            return db.Employees.FirstOrDefault(x => x.DataField1 == code && x.DataField2 == name);
         }
 
     }

@@ -43,7 +43,7 @@ namespace WindowsFormsApp2
 
         private void LoadImages()
         {
-            
+
             UpdateStatusBar("Loading Images");
             images.Clear();
             pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -64,7 +64,7 @@ namespace WindowsFormsApp2
         private void PictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             toolStripStatusLabel1.Text = "X=" + e.Location.X.ToString() + " Y=" + e.Location.Y.ToString();
-            if ((identificationRecs.Count == 1 && e.Button == MouseButtons.Right) || (recs.Count == 2 && e.Button==MouseButtons.Left))
+            if ((identificationRecs.Count == 1 && e.Button == MouseButtons.Right) || (recs.Count == 2 && e.Button == MouseButtons.Left))
             {
                 MessageBox.Show("You are only allowed 1 Purple and 2 Red boxes");
             }
@@ -83,8 +83,10 @@ namespace WindowsFormsApp2
                 identificationRecs.Add(rec.Value);
 
                 var data = images[0].IdentifyData(new Rectangle[] { rec.Value });
-                string name, code;
-                GetIdentificationFields(data, out name, out code);
+                foreach (string s in data)
+                {
+                    UpdateStatusBar($"Field Identified as : { s}");
+                }
             }
             else
             {
@@ -242,6 +244,7 @@ namespace WindowsFormsApp2
             {
                 var d = dlg.FileName;
                 var file = File.ReadAllLines(d);
+                employees.RemoveEmployees();
                 foreach (string s in file.Skip(1))
                 {
                     employees.AddNewEmployee(s.Split(',')[0], s.Split(',')[1], s.Split(',')[2], s.Split(',')[3]);
@@ -280,7 +283,7 @@ namespace WindowsFormsApp2
         }
 
 
-        private void templateNew_Click(object sender, EventArgs e)
+        private void TemplateNew_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Portable Document|*.pdf";
@@ -300,7 +303,7 @@ namespace WindowsFormsApp2
                 LoadImages();
             }
         }
-        private void templateSave_Click(object sender, EventArgs e)
+        private void TemplateSave_Click(object sender, EventArgs e)
         {
             if (recs.Count > 1 && identificationRecs.Count > 0)
             {
@@ -313,7 +316,7 @@ namespace WindowsFormsApp2
             }
         }
 
-        private void processDocumentsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ProcessDocumentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var count = 0;
             foreach (OcrImage ocrImage in images)
@@ -332,15 +335,16 @@ namespace WindowsFormsApp2
                     string dataField1, dataField2;
                     GetIdentificationFields(data, out dataField1, out dataField2);
                     var staffMemeber = employees.GetEmployee(dataField1, dataField2);
-                    if (data == null)
+                    if (staffMemeber == null)
                     {
                         MessageBox.Show(String.Format("No data found for DataField1: {0}, DataField2: {1}", dataField1, dataField2));
+                        ocrImage.SaveFileAsError($"{dataField1} {dataField2 }_{ Guid.NewGuid().ToString()}_ERROR");
                     }
                     else
                     {
                         ocrImage.EncryptFile(staffMemeber.PinCode);
                         ocrImage.SaveFile(staffMemeber.DataField1 + "_" + Guid.NewGuid());
-                        ocrImage.Send(staffMemeber.EmailAddress);
+                        //ocrImage.Send(staffMemeber.EmailAddress);
                     }
                 }
                 catch (Exception ex)
@@ -349,9 +353,14 @@ namespace WindowsFormsApp2
                     MessageBox.Show(ex.Message);
                 }
             }
+            pictureBox1.Image = null;
         }
 
-        
+        private void ClearTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Templates.RemoveAll();
+            MessageBox.Show("Templates Removed");
+        }
     }
 
 

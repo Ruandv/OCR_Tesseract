@@ -131,7 +131,7 @@
             this.processDocuments.Name = "processDocuments";
             this.processDocuments.Size = new System.Drawing.Size(178, 22);
             this.processDocuments.Text = "Process Documents";
-            this.processDocuments.Click += new System.EventHandler(this.processDocumentsToolStripMenuItem_Click);
+            this.processDocuments.Click += new System.EventHandler(this.ProcessDocumentsToolStripMenuItem_Click);
             // 
             // templateToolStripMenuItem1
             // 
@@ -146,21 +146,21 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.templateNew_Click);
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.TemplateNew_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.templateSave_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.TemplateSave_Click);
             // 
             // resetMarkingsToolStripMenuItem
             // 
             this.resetMarkingsToolStripMenuItem.Name = "resetMarkingsToolStripMenuItem";
-            this.resetMarkingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetMarkingsToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.resetMarkingsToolStripMenuItem.Text = "Reset Markings";
             this.resetMarkingsToolStripMenuItem.Click += new System.EventHandler(this.ResetIdentificationToolStripMenuItem1_Click);
             // 
@@ -176,15 +176,16 @@
             // updateEmployeeRegisterToolStripMenuItem
             // 
             this.updateEmployeeRegisterToolStripMenuItem.Name = "updateEmployeeRegisterToolStripMenuItem";
-            this.updateEmployeeRegisterToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.updateEmployeeRegisterToolStripMenuItem.Text = "Update Employee Register";
+            this.updateEmployeeRegisterToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.updateEmployeeRegisterToolStripMenuItem.Text = "Clear and Update Employee Register";
             this.updateEmployeeRegisterToolStripMenuItem.Click += new System.EventHandler(this.EmployeeRegisterToolStripMenuItem_Click);
             // 
             // clearTemplatesToolStripMenuItem
             // 
             this.clearTemplatesToolStripMenuItem.Name = "clearTemplatesToolStripMenuItem";
-            this.clearTemplatesToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.clearTemplatesToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
             this.clearTemplatesToolStripMenuItem.Text = "Clear Templates";
+            this.clearTemplatesToolStripMenuItem.Click += new System.EventHandler(this.ClearTemplatesToolStripMenuItem_Click);
             // 
             // Form1
             // 

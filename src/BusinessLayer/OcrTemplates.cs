@@ -12,7 +12,7 @@ namespace BusinessLayer
         {
         }
 
-        public void AddNewTemplate(string templateName,string templateData,byte[] templateImage,string identificationData)
+        public void AddNewTemplate(string templateName, string templateData, byte[] templateImage, string identificationData)
         {
             db.OcrTemplates.Add(new OcrTemplate(templateName, templateData, templateImage, identificationData));
             db.SaveChanges();
@@ -26,6 +26,12 @@ namespace BusinessLayer
         public OcrTemplate GetTemplate(string description)
         {
             return db.OcrTemplates.First(x => x.TemplateDescription == description);
+        }
+
+        public void RemoveAll()
+        {
+            db.OcrTemplates.RemoveRange(db.OcrTemplates.Where(x => x.Id > 0));
+            db.SaveChanges();
         }
     }
 }
