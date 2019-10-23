@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
-using MassTransit;
 using System;
 using System.Linq;
 using System.Web.Http;

@@ -39,6 +39,8 @@ namespace WindowsFormsApp2
             identificationRecs.Clear();
 
             saveToolStripMenuItem.Enabled = (identificationRecs.Count > 0 && recs.Count > 1);
+            var frm = new Database();
+            frm.ShowDialog(this);
         }
 
         private void LoadImages()
@@ -119,11 +121,6 @@ namespace WindowsFormsApp2
                     pictureBox1.CreateGraphics().DrawRectangle(pen, rec.Value);
                 }
             }
-        }
-
-        private void BtnIdentify_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void GetIdentificationFields(IEnumerable<string> data, out string name, out string code)
@@ -218,39 +215,9 @@ namespace WindowsFormsApp2
             reader.Close();
         }
 
-        private void BtnCreateTemplate_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        //private void CboTemplates_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    recs.Clear();
-        //    identificationRecs.Clear();
-        //    var template = Templates.GetTemplate(cboTemplates.Text.ToString());
-        //    var data = JsonConvert.DeserializeObject<Rectangle[]>(template.Data);
-        //    recs.AddRange(data);
-        //    identificationRecs.AddRange(JsonConvert.DeserializeObject<Rectangle[]>(template.IdentificationData));
-        //    DrawRectangles(recs, Color.Red, "Data");
-        //    DrawIdentifications(identificationRecs, Color.Purple, "Identification");
-        //}
-
         private void EmployeeRegisterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "CSV|*.csv";
-            var res = dlg.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                var d = dlg.FileName;
-                var file = File.ReadAllLines(d);
-                employees.RemoveEmployees();
-                foreach (string s in file.Skip(1))
-                {
-                    employees.AddNewEmployee(s.Split(',')[0], s.Split(',')[1], s.Split(',')[2], s.Split(',')[3]);
-                }
-                MessageBox.Show("Data Updated");
-            }
+
         }
 
         private void UploadPDFToolStripMenuItem_Click(object sender, EventArgs e)
@@ -303,12 +270,21 @@ namespace WindowsFormsApp2
                 LoadImages();
             }
         }
+
         private void TemplateSave_Click(object sender, EventArgs e)
         {
             if (recs.Count > 1 && identificationRecs.Count > 0)
             {
-                var frm = new InputDialogBox(recs, images[0].GetImage().ToByteArray(), identificationRecs);
-                frm.ShowDialog();
+                var frm = new InputDialogBox(recs, images[0].GetImage().ToByteArray(), identificationRecs, toolStripStatusLabel2.Text.Substring(toolStripStatusLabel2.Text.LastIndexOf(":") + 1).Trim());
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBox1.Image = null;
+                    saveToolStripMenuItem.Enabled = false;
+                }
+                else
+                {
+
+                }
             }
             else
             {
@@ -360,6 +336,12 @@ namespace WindowsFormsApp2
         {
             Templates.RemoveAll();
             MessageBox.Show("Templates Removed");
+        }
+
+        private void EmployeeDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frm = new Database();
+            frm.ShowDialog(this);
         }
     }
 

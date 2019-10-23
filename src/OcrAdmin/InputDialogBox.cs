@@ -13,11 +13,12 @@ namespace WindowsFormsApp2
 
         public byte[] OcrImage { get; }
 
-        public InputDialogBox(List<Rectangle> recs, byte[] ocrImage, List<Rectangle> identificationRecs)
+        public InputDialogBox(List<Rectangle> recs, byte[] ocrImage, List<Rectangle> identificationRecs, string suggestedName)
         {
             InitializeComponent();
             this.recs = recs;
             OcrImage = ocrImage;
+            txtTemplateName.Text = suggestedName;
             IdentificationRecs = identificationRecs;
         }
 
@@ -27,6 +28,7 @@ namespace WindowsFormsApp2
             {
                 var Templates = new OcrTemplates();
                 Templates.AddNewTemplate(txtTemplateName.Text, Newtonsoft.Json.JsonConvert.SerializeObject(recs), OcrImage, Newtonsoft.Json.JsonConvert.SerializeObject(IdentificationRecs));
+                this.DialogResult = DialogResult.OK;
                 this.Dispose();
             }
         }

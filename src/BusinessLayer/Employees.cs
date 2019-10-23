@@ -1,4 +1,6 @@
 ﻿using DatabaseLayer;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BusinessLayer
@@ -22,10 +24,27 @@ namespace BusinessLayer
             db.SaveChanges();
         }
 
+        public IList<Employee> GetEmployeeList()
+        {
+            return db.Employees.Where(x => x.Id > 0).ToList();
+        }
+
         public Employee GetEmployee(string code, string name)
         {
             return db.Employees.FirstOrDefault(x => x.DataField1 == code && x.DataField2 == name);
         }
 
+        public Employee GetEmployeeById(int value)
+        {
+            return db.Employees.Find(value);
+        }
+
+        public void Update(Employee emp)
+        {
+
+            var c = db.Employees.Find(emp.Id);
+            c = emp;
+            db.SaveChanges();
+        }
     }
 }
