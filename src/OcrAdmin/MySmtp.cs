@@ -1,9 +1,9 @@
-﻿using BusinessLayer;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Net.Mail;
+using BusinessLayer;
 
-namespace WindowsFormsApp2
+namespace SteadyPayout
 {
     public class MySmtp : ISmtpInfo
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
+using WindowsFormsApp2;
 
-namespace WindowsFormsApp2
+namespace SteadyPayout
 {
     static class Program
     {

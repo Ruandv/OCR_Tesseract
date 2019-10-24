@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using SteadyPayout;
 
 namespace WindowsFormsApp2
 {
@@ -47,6 +48,7 @@ namespace WindowsFormsApp2
 
             UpdateStatusBar("Loading Images");
             images.Clear();
+            pictureBox1.Width = 0;
             pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
 
             foreach (string f in Directory.GetFiles(ConfigurationManager.AppSettings.Get("ApplicationDirectory"), "*.pdf"))
@@ -312,13 +314,13 @@ namespace WindowsFormsApp2
                     }
                     else
                     {
-                        ocrImage.EncryptFile(staffMemeber.PinCode);
+                        if(staffMemeber.PinCode.Trim().Length>0)
+                            ocrImage.EncryptFile(staffMemeber.PinCode);
+                         
                         var fileName = ocrImage.SaveFile(staffMemeber.DataField1 + "_" + Guid.NewGuid());
                         if (ConfigurationManager.AppSettings["UseEmail"].ToLower() == "true")
                         {
-                            EmailSlip(staffMemeber.EmailAddress, $"Payslip for {staffMemeber.DataField1} - {DateTime.Now:MMMM}",
-                                $"Please use your first 6 digits of your Id Number to unlock the file",
-                                fileName);
+                            EmailSlip(staffMemeber.EmailAddress,fileName);
                         }
                     }
                 }
@@ -343,13 +345,13 @@ namespace WindowsFormsApp2
             frm.ShowDialog(this);
         }
 
-        private async Task EmailSlip(string emailAddress, string subject, string htmlMessage, string attachmentLocation)
+        private async Task EmailSlip(string emailAddress, string attachmentLocation)
         {
             var apiKey = ConfigurationManager.AppSettings["ApiKey"];
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("Payslips@absolutesys.com", "Payslip");
             var to = new EmailAddress(emailAddress);
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
+            var msg = MailHelper.CreateSingleEmail(from, to, ConfigurationManager.AppSettings["EmailSubject"],"", ConfigurationManager.AppSettings["EmailMessage"]);
             var bytes = File.ReadAllBytes(attachmentLocation);
             var file = Convert.ToBase64String(bytes);
             msg.AddAttachment("payslip.pdf", file);

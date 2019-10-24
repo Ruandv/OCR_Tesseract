@@ -86,7 +86,12 @@ namespace BusinessLayer
             {
                 File.Delete(Path.Combine(path, fileName));
             }
-            File.WriteAllBytes(Path.Combine(path, fileName) + ".pdf", protectedDocument);
+
+            if (protectedDocument != null)
+                File.WriteAllBytes(Path.Combine(path, fileName) + ".pdf", protectedDocument);
+            else
+                File.WriteAllBytes(Path.Combine(path, fileName) + ".pdf", myPdfImage);
+
             return Path.Combine(path, fileName) + ".pdf";
         }
 

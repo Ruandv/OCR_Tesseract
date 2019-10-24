@@ -23,6 +23,8 @@ namespace WindowsFormsApp2
             txtPort.Text = settings["SmtpPort"];
             txtApiKey.Text = settings["ApiKey"];
             chkEmail.Checked = settings["UseEmail"] == "true";
+            txtEmailSubject.Text = settings["EmailSubject"];
+            txtEmailMessage.Text = settings["EmailMessage"];
         }
 
         private void cmdSave_Click(object sender, EventArgs e)
@@ -36,6 +38,8 @@ namespace WindowsFormsApp2
             config.AppSettings.Settings["ApiKey"].Value = txtApiKey.Text;
             config.AppSettings.Settings["UseEmail"].Value = (chkEmail.Checked ? "true" : "false");
             config.AppSettings.Settings["DeleteUnencryptedFiles"].Value = (chkDelete.Checked ? "true" : "false");
+            config.AppSettings.Settings["EmailSubject"].Value = txtEmailSubject.Text;
+            config.AppSettings.Settings["EmailMessage"].Value = txtEmailMessage.Text;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
             this.Close();

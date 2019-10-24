@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -77,7 +78,9 @@
             // panel2
             // 
             this.panel2.AutoScroll = true;
-            this.panel2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BackgroundImage = global::SteadyPayout.Properties.Resources.SteadyPayout;
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -123,14 +126,14 @@
             // uploadPDFToolStripMenuItem
             // 
             this.uploadPDFToolStripMenuItem.Name = "uploadPDFToolStripMenuItem";
-            this.uploadPDFToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.uploadPDFToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.uploadPDFToolStripMenuItem.Text = "Upload PDF";
             this.uploadPDFToolStripMenuItem.Click += new System.EventHandler(this.UploadPDFToolStripMenuItem_Click);
             // 
             // processDocuments
             // 
             this.processDocuments.Name = "processDocuments";
-            this.processDocuments.Size = new System.Drawing.Size(178, 22);
+            this.processDocuments.Size = new System.Drawing.Size(180, 22);
             this.processDocuments.Text = "Process Documents";
             this.processDocuments.Click += new System.EventHandler(this.ProcessDocumentsToolStripMenuItem_Click);
             // 
@@ -147,21 +150,22 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.TemplateNew_Click);
             // 
             // saveToolStripMenuItem
             // 
+            this.saveToolStripMenuItem.BackColor = System.Drawing.Color.Transparent;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.TemplateSave_Click);
             // 
             // resetMarkingsToolStripMenuItem
             // 
             this.resetMarkingsToolStripMenuItem.Name = "resetMarkingsToolStripMenuItem";
-            this.resetMarkingsToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.resetMarkingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetMarkingsToolStripMenuItem.Text = "Reset Markings";
             this.resetMarkingsToolStripMenuItem.Click += new System.EventHandler(this.ResetIdentificationToolStripMenuItem1_Click);
             // 
@@ -205,8 +209,9 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.statusStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "OCR Template Manager";
+            this.Text = "Steady Payout";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

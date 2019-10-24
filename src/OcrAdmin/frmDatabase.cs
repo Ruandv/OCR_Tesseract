@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -60,13 +61,13 @@ namespace WindowsFormsApp2
 
         private void cmdExport_Click(object sender, EventArgs e)
         {
-            File.Delete(@"C:\logs\EmployeeData.csv");
-            File.AppendAllLines(@"C:\logs\EmployeeData.csv", new[] { $"DataField1,DataField2,PinCode,EmailAddress" });
+            File.Delete(Path.Combine(ConfigurationManager.AppSettings["ApplicationDirectory"],"EmployeeData.csv"));
+            File.AppendAllLines(Path.Combine(ConfigurationManager.AppSettings["ApplicationDirectory"], "EmployeeData.csv"), new[] { $"DataField1,DataField2,PinCode,EmailAddress" });
             foreach (var emp in employees.GetEmployeeList())
             {
-                File.AppendAllLines(@"C:\logs\EmployeeData.csv", new[] { $"{emp.DataField1},{emp.DataField2},{emp.PinCode},{emp.EmailAddress}" });
+                File.AppendAllLines(Path.Combine(ConfigurationManager.AppSettings["ApplicationDirectory"], "EmployeeData.csv"), new[] { $"{emp.DataField1},{emp.DataField2},{emp.PinCode},{emp.EmailAddress}" });
             }
-            MessageBox.Show("Data Export Complete", "C:\\Logs\\EmployeeData.csv", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Data Export Complete", Path.Combine(ConfigurationManager.AppSettings["ApplicationDirectory"], "EmployeeData.csv"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
