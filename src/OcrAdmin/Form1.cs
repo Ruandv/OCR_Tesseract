@@ -39,8 +39,8 @@ namespace WindowsFormsApp2
             identificationRecs.Clear();
 
             saveToolStripMenuItem.Enabled = (identificationRecs.Count > 0 && recs.Count > 1);
-            var frm = new Database();
-            frm.ShowDialog(this);
+            //var frm = new Database();
+            //frm.ShowDialog(this);
         }
 
         private void LoadImages()
@@ -340,8 +340,8 @@ namespace WindowsFormsApp2
 
         private void EmployeeDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var frm = new Database();
-            frm.ShowDialog(this);
+        //    var frm = new Database();
+        //    frm.ShowDialog(this);
         }
     }
 
