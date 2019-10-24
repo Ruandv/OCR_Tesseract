@@ -340,8 +340,8 @@ namespace WindowsFormsApp2
 
         private void EmployeeDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        //    var frm = new Database();
-        //    frm.ShowDialog(this);
+            var frm = new Database();
+            frm.ShowDialog(this);
         }
     }
 
