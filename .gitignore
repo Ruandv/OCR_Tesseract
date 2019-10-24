@@ -12,7 +12,8 @@
 /src/WebApi/obj
 obj
 bin
-/src/OcrAdmin/*
+/src/OcrAdmin/obj
+/src/OcrAdmin/bin
 /src/IntegrationContracts/obj
 /src/IntegrationContracts/bin
 /src/DatabaseLayer/obj
