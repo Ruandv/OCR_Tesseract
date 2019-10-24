@@ -12,8 +12,8 @@
 /src/WebApi/obj
 obj
 bin
-/src/OcrAdmin/obj
-/src/OcrAdmin/bin
+/src/steadypayout/obj
+/src/steadypayout/bin
 /src/IntegrationContracts/obj
 /src/IntegrationContracts/bin
 /src/DatabaseLayer/obj
@@ -22,4 +22,4 @@ bin
 /src/Database/bin
 /src/TessaractTemplates/obj
 /src/TessaractTemplates/bin
-/src/OcrAdmin/Configuration/AppSettings.config
+/src/steadypayout/Configuration/*.config
