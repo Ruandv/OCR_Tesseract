@@ -361,6 +361,12 @@ namespace WindowsFormsApp2
             Templates.RemoveAll();
             MessageBox.Show("Templates Removed");
         }
+
+        private void EmployeesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DatabaseForm f = new DatabaseForm(new string[] { "E"});
+            f.ShowDialog();
+        }
     }
 
 

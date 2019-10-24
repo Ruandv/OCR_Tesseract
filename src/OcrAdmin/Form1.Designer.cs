@@ -44,6 +44,7 @@
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateEmployeeRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTemplatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.employeesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -168,7 +169,8 @@
             // 
             this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateEmployeeRegisterToolStripMenuItem,
-            this.clearTemplatesToolStripMenuItem});
+            this.clearTemplatesToolStripMenuItem,
+            this.employeesToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
             this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.databaseToolStripMenuItem.Text = "Database";
@@ -186,6 +188,13 @@
             this.clearTemplatesToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
             this.clearTemplatesToolStripMenuItem.Text = "Clear Templates";
             this.clearTemplatesToolStripMenuItem.Click += new System.EventHandler(this.ClearTemplatesToolStripMenuItem_Click);
+            // 
+            // employeesToolStripMenuItem
+            // 
+            this.employeesToolStripMenuItem.Name = "employeesToolStripMenuItem";
+            this.employeesToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.employeesToolStripMenuItem.Text = "Employee List";
+            this.employeesToolStripMenuItem.Click += new System.EventHandler(this.EmployeesToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -228,6 +237,7 @@
         private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateEmployeeRegisterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearTemplatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem employeesToolStripMenuItem;
     }
 }
 
