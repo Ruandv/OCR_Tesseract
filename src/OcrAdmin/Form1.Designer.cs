@@ -42,9 +42,9 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetMarkingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateEmployeeRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTemplatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.employeeDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configurationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -168,33 +168,33 @@
             // databaseToolStripMenuItem
             // 
             this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.updateEmployeeRegisterToolStripMenuItem,
             this.clearTemplatesToolStripMenuItem,
-            this.employeeDataToolStripMenuItem});
+            this.employeeDataToolStripMenuItem,
+            this.configurationsToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
             this.databaseToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.databaseToolStripMenuItem.Text = "Database";
             // 
-            // updateEmployeeRegisterToolStripMenuItem
-            // 
-            this.updateEmployeeRegisterToolStripMenuItem.Name = "updateEmployeeRegisterToolStripMenuItem";
-            this.updateEmployeeRegisterToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
-            this.updateEmployeeRegisterToolStripMenuItem.Text = "Clear and Update Employee Register";
-            this.updateEmployeeRegisterToolStripMenuItem.Click += new System.EventHandler(this.EmployeeRegisterToolStripMenuItem_Click);
-            // 
             // clearTemplatesToolStripMenuItem
             // 
             this.clearTemplatesToolStripMenuItem.Name = "clearTemplatesToolStripMenuItem";
-            this.clearTemplatesToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.clearTemplatesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clearTemplatesToolStripMenuItem.Text = "Clear Templates";
             this.clearTemplatesToolStripMenuItem.Click += new System.EventHandler(this.ClearTemplatesToolStripMenuItem_Click);
             // 
             // employeeDataToolStripMenuItem
             // 
             this.employeeDataToolStripMenuItem.Name = "employeeDataToolStripMenuItem";
-            this.employeeDataToolStripMenuItem.Size = new System.Drawing.Size(265, 22);
+            this.employeeDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.employeeDataToolStripMenuItem.Text = "Employee Data";
             this.employeeDataToolStripMenuItem.Click += new System.EventHandler(this.EmployeeDataToolStripMenuItem_Click);
+            // 
+            // configurationsToolStripMenuItem
+            // 
+            this.configurationsToolStripMenuItem.Name = "configurationsToolStripMenuItem";
+            this.configurationsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configurationsToolStripMenuItem.Text = "Configurations";
+            this.configurationsToolStripMenuItem.Click += new System.EventHandler(this.configurationsToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -235,9 +235,9 @@
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetMarkingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem updateEmployeeRegisterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearTemplatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem employeeDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configurationsToolStripMenuItem;
     }
 }
 

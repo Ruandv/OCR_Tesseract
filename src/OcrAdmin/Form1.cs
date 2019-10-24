@@ -214,11 +214,6 @@ namespace WindowsFormsApp2
             reader.Close();
         }
 
-        private void EmployeeRegisterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void UploadPDFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateStatusBar("Uploading PDF");
@@ -321,9 +316,9 @@ namespace WindowsFormsApp2
                         var fileName = ocrImage.SaveFile(staffMemeber.DataField1 + "_" + Guid.NewGuid());
                         if (ConfigurationManager.AppSettings["UseEmail"].ToLower() == "true")
                         {
-                            EmailSlip(staffMemeber.EmailAddress, $"Payslip for {DateTime.Now:MMMM}",
-                                $"Please use your DOB (ddmmyyyy) to unlock the payslip",
-                                fileName).Wait();
+                            EmailSlip(staffMemeber.EmailAddress, $"Payslip for {staffMemeber.DataField1} - {DateTime.Now:MMMM}",
+                                $"Please use your first 6 digits of your Id Number to unlock the file",
+                                fileName);
                         }
                     }
                 }
@@ -358,8 +353,13 @@ namespace WindowsFormsApp2
             var bytes = File.ReadAllBytes(attachmentLocation);
             var file = Convert.ToBase64String(bytes);
             msg.AddAttachment("payslip.pdf", file);
-            var response = await client.SendEmailAsync(msg);
+            await client.SendEmailAsync(msg);
+        }
 
+        private void configurationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frm = new frmConfigurations();
+            frm.ShowDialog(this);
         }
     }
 
