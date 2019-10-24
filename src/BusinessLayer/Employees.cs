@@ -1,5 +1,4 @@
 ﻿using DatabaseLayer;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +17,7 @@ namespace BusinessLayer
             db.Employees.RemoveRange(db.Employees.Where(x => x.Id > 0));
             db.SaveChanges();
         }
+
         public void AddNewEmployee(string code, string name, string identityNumber, string emailAddress)
         {
             db.Employees.Add(new Employee(code, name, identityNumber, emailAddress));

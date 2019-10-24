@@ -1,14 +1,16 @@
 ﻿using BusinessLayer;
 using DatabaseLayer;
 using iTextSharp.text.pdf;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace WindowsFormsApp2
 {
@@ -20,7 +22,7 @@ namespace WindowsFormsApp2
         Rectangle? rec = new Rectangle();
         List<OcrImage> images = new List<OcrImage>();
         List<Rectangle> recs = new List<Rectangle>();
-        List<Rectangle> identificationRecs = new List<Rectangle>();
+        readonly List<Rectangle> identificationRecs = new List<Rectangle>();
 
         public Form1()
         {
@@ -37,10 +39,7 @@ namespace WindowsFormsApp2
             LoadImages();
             recs.Clear();
             identificationRecs.Clear();
-
             saveToolStripMenuItem.Enabled = (identificationRecs.Count > 0 && recs.Count > 1);
-            //var frm = new Database();
-            //frm.ShowDialog(this);
         }
 
         private void LoadImages()
@@ -313,14 +312,19 @@ namespace WindowsFormsApp2
                     var staffMemeber = employees.GetEmployee(dataField1, dataField2);
                     if (staffMemeber == null)
                     {
-                        MessageBox.Show(String.Format("No data found for DataField1: {0}, DataField2: {1}", dataField1, dataField2));
+                        MessageBox.Show($"No data found for DataField1: {dataField1}, DataField2: {dataField2}");
                         ocrImage.SaveFileAsError($"{dataField1} {dataField2 }_{ Guid.NewGuid().ToString()}_ERROR");
                     }
                     else
                     {
                         ocrImage.EncryptFile(staffMemeber.PinCode);
-                        ocrImage.SaveFile(staffMemeber.DataField1 + "_" + Guid.NewGuid());
-                        //ocrImage.Send(staffMemeber.EmailAddress);
+                        var fileName = ocrImage.SaveFile(staffMemeber.DataField1 + "_" + Guid.NewGuid());
+                        if (ConfigurationManager.AppSettings["UseEmail"].ToLower() == "true")
+                        {
+                            EmailSlip(staffMemeber.EmailAddress, $"Payslip for {DateTime.Now:MMMM}",
+                                $"Please use your DOB (ddmmyyyy) to unlock the payslip",
+                                fileName).Wait();
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -340,8 +344,22 @@ namespace WindowsFormsApp2
 
         private void EmployeeDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var frm = new Database();
+            var frm = new frmDatabase();
             frm.ShowDialog(this);
+        }
+
+        private async Task EmailSlip(string emailAddress, string subject, string htmlMessage, string attachmentLocation)
+        {
+            var apiKey = ConfigurationManager.AppSettings["ApiKey"];
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("Payslips@absolutesys.com", "Payslip");
+            var to = new EmailAddress(emailAddress);
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlMessage);
+            var bytes = File.ReadAllBytes(attachmentLocation);
+            var file = Convert.ToBase64String(bytes);
+            msg.AddAttachment("payslip.pdf", file);
+            var response = await client.SendEmailAsync(msg);
+
         }
     }
 

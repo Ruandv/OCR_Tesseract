@@ -16,11 +16,14 @@ namespace BusinessLayer
     public class OcrImage
     {
         byte[] buffer = new byte[16 * 1024];
-        private string PdfImagePath;
-        private byte[] MyPdfImage;
+        private string pdfImagePath;
+        private byte[] myPdfImage;
         private Image pngImage;
-        private byte[] ProtectedDocument;
+        private byte[] protectedDocument;
         private ISmtpInfo smtp;
+
+        public string PdfImagePath1 { get => pdfImagePath; set => pdfImagePath = value; }
+
         public OcrImage(string pdfImagePath, ISmtpInfo smtp)
         {
             this.smtp = smtp;
@@ -34,9 +37,9 @@ namespace BusinessLayer
 
         private void SetBasics(string pdfImagePath)
         {
-            PdfImagePath = pdfImagePath;
-            MyPdfImage = File.ReadAllBytes(pdfImagePath);
-            ConvertPdfToPng(MyPdfImage);
+            PdfImagePath1 = pdfImagePath;
+            myPdfImage = File.ReadAllBytes(pdfImagePath);
+            ConvertPdfToPng(myPdfImage);
             if (ConfigurationManager.AppSettings.Get("DeleteUnencryptedFiles").ToUpper() == "TRUE")
                 File.Delete(pdfImagePath);
         }
@@ -59,7 +62,7 @@ namespace BusinessLayer
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                PdfReader reader = new PdfReader(MyPdfImage);
+                PdfReader reader = new PdfReader(myPdfImage);
                 PdfStamper stamper = new PdfStamper(reader, ms);
                 byte[] USER = System.Text.Encoding.ASCII.GetBytes(password);
                 byte[] OWNER = System.Text.Encoding.ASCII.GetBytes(password);
@@ -67,11 +70,11 @@ namespace BusinessLayer
                 stamper.Close();
                 reader.Close();
                 ms.Flush();
-                ProtectedDocument = ms.GetBuffer();
+                protectedDocument = ms.GetBuffer();
             }
         }
 
-        public void SaveFile(string fileName)
+        public string SaveFile(string fileName)
         {
             string path = ConfigurationManager.AppSettings.Get("EncryptionDirectory");
 
@@ -83,7 +86,8 @@ namespace BusinessLayer
             {
                 File.Delete(Path.Combine(path, fileName));
             }
-            File.WriteAllBytes(Path.Combine(path, fileName) + ".pdf", ProtectedDocument);
+            File.WriteAllBytes(Path.Combine(path, fileName) + ".pdf", protectedDocument);
+            return Path.Combine(path, fileName) + ".pdf";
         }
 
         public void SaveFileAsError(string fileName)
@@ -98,7 +102,7 @@ namespace BusinessLayer
             {
                 File.Delete(Path.Combine(path, fileName));
             }
-            File.WriteAllBytes(Path.Combine(path, fileName) + ".pdf", MyPdfImage);
+            File.WriteAllBytes(Path.Combine(path, fileName) + ".pdf", myPdfImage);
         }
         public void Send(string emailAddress)
         {
@@ -106,7 +110,7 @@ namespace BusinessLayer
             {
                 throw new NotSupportedException("Please supply a class that implements the ISmtpInfo Interface");
             }
-            smtp.Send(emailAddress, "TEMPLATE NAME", "BLAHHHH", ProtectedDocument);
+            smtp.Send(emailAddress, "TEMPLATE NAME", "BLAHHHH", protectedDocument);
         }
 
         public IEnumerable<string> IdentifyData(IEnumerable<Rectangle> coOrdinates)

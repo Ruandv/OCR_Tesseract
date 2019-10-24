@@ -16,6 +16,11 @@ namespace WindowsFormsApp2
 
         private void Database_Load(object sender, EventArgs e)
         {
+            RefreshGrid();
+        }
+
+        private void RefreshGrid()
+        {
             dataGridView1.DataSource = employees.GetEmployeeList();
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.Columns[0].Visible = false;
@@ -48,6 +53,7 @@ namespace WindowsFormsApp2
                         employees.AddNewEmployee(s.Split(',')[0], s.Split(',')[1], s.Split(',')[2], s.Split(',')[3]);
                     }
                     MessageBox.Show("Data Updated");
+                    RefreshGrid();
                 }
             }
         }
