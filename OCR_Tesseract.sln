@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCREndpoint", "src\OCREndpo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationContracts", "Src\IntegrationContracts\IntegrationContracts.csproj", "{980703A9-10AA-4F24-A850-693DFAD4AA5C}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PaySlipSplitter", "PaySlipSplitter\PaySlipSplitter.vdproj", "{61701F15-B62E-4B46-B5A7-130037F4B5BE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{980703A9-10AA-4F24-A850-693DFAD4AA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{980703A9-10AA-4F24-A850-693DFAD4AA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{980703A9-10AA-4F24-A850-693DFAD4AA5C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{61701F15-B62E-4B46-B5A7-130037F4B5BE}.Debug|Any CPU.ActiveCfg = Debug
-		{61701F15-B62E-4B46-B5A7-130037F4B5BE}.Debug|Any CPU.Build.0 = Debug
-		{61701F15-B62E-4B46-B5A7-130037F4B5BE}.Release|Any CPU.ActiveCfg = Release
-		{61701F15-B62E-4B46-B5A7-130037F4B5BE}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,13 +16,11 @@ namespace BusinessLayer
     public class OcrImage
     {
         byte[] buffer = new byte[16 * 1024];
-        private string pdfImagePath;
+
         private byte[] myPdfImage;
         private Image pngImage;
         private byte[] protectedDocument;
         private ISmtpInfo smtp;
-
-        public string PdfImagePath1 { get => pdfImagePath; set => pdfImagePath = value; }
 
         public OcrImage(string pdfImagePath, ISmtpInfo smtp)
         {
@@ -37,7 +35,6 @@ namespace BusinessLayer
 
         private void SetBasics(string pdfImagePath)
         {
-            PdfImagePath1 = pdfImagePath;
             myPdfImage = File.ReadAllBytes(pdfImagePath);
             ConvertPdfToPng(myPdfImage);
             if (ConfigurationManager.AppSettings.Get("DeleteUnencryptedFiles").ToUpper() == "TRUE")
@@ -97,7 +94,7 @@ namespace BusinessLayer
 
         public void SaveFileAsError(string fileName)
         {
-            string path = ConfigurationManager.AppSettings.Get("ErrorDirectory");
+            string path = ConfigurationManager.AppSettings["ErrorDirectory"];
 
             if (!path.EndsWith(@"\")) path += @"\";
             if (!Directory.Exists(path))
@@ -109,13 +106,20 @@ namespace BusinessLayer
             }
             File.WriteAllBytes(Path.Combine(path, fileName) + ".pdf", myPdfImage);
         }
+
         public void Send(string emailAddress)
         {
             if (smtp == null)
             {
                 throw new NotSupportedException("Please supply a class that implements the ISmtpInfo Interface");
             }
-            smtp.Send(emailAddress, "TEMPLATE NAME", "BLAHHHH", protectedDocument);
+
+            var document = protectedDocument;
+
+            if (protectedDocument == null)
+                document = myPdfImage;
+
+            smtp.Send(emailAddress, ConfigurationManager.AppSettings["EmailSubject"], ConfigurationManager.AppSettings["EmailMessage"], document);
         }
 
         public IEnumerable<string> IdentifyData(IEnumerable<Rectangle> coOrdinates)

@@ -25,6 +25,7 @@ namespace WindowsFormsApp2
             chkEmail.Checked = settings["UseEmail"] == "true";
             txtEmailSubject.Text = settings["EmailSubject"];
             txtEmailMessage.Text = settings["EmailMessage"];
+            txtFromEmailAddress.Text = settings["FromEmailAddress"];
         }
 
         private void cmdSave_Click(object sender, EventArgs e)
@@ -40,6 +41,7 @@ namespace WindowsFormsApp2
             config.AppSettings.Settings["DeleteUnencryptedFiles"].Value = (chkDelete.Checked ? "true" : "false");
             config.AppSettings.Settings["EmailSubject"].Value = txtEmailSubject.Text;
             config.AppSettings.Settings["EmailMessage"].Value = txtEmailMessage.Text;
+            config.AppSettings.Settings["FromEmailAddress"].Value = txtFromEmailAddress.Text;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
             this.Close();

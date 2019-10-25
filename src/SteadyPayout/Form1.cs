@@ -54,7 +54,8 @@ namespace WindowsFormsApp2
             foreach (string f in Directory.GetFiles(ConfigurationManager.AppSettings.Get("ApplicationDirectory"), "*.pdf"))
             {
                 UpdateStatusBar("Loading Image : " + f);
-                images.Add(new OcrImage(f, new MySmtp()));
+                //images.Add(new OcrImage(f, new SteadyPayout.SendGrid()));
+                images.Add(new OcrImage(f, new SteadyPayout.SendGrid()));
             }
 
             if (images.Any())
@@ -314,13 +315,13 @@ namespace WindowsFormsApp2
                     }
                     else
                     {
-                        if(staffMemeber.PinCode.Trim().Length>0)
+                        if (staffMemeber.PinCode.Trim().Length > 0)
                             ocrImage.EncryptFile(staffMemeber.PinCode);
-                         
+
                         var fileName = ocrImage.SaveFile(staffMemeber.DataField1 + "_" + Guid.NewGuid());
                         if (ConfigurationManager.AppSettings["UseEmail"].ToLower() == "true")
                         {
-                            EmailSlip(staffMemeber.EmailAddress,fileName);
+                            ocrImage.Send(staffMemeber.EmailAddress);
                         }
                     }
                 }
@@ -345,20 +346,9 @@ namespace WindowsFormsApp2
             frm.ShowDialog(this);
         }
 
-        private async Task EmailSlip(string emailAddress, string attachmentLocation)
-        {
-            var apiKey = ConfigurationManager.AppSettings["ApiKey"];
-            var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("Payslips@absolutesys.com", "Payslip");
-            var to = new EmailAddress(emailAddress);
-            var msg = MailHelper.CreateSingleEmail(from, to, ConfigurationManager.AppSettings["EmailSubject"],"", ConfigurationManager.AppSettings["EmailMessage"]);
-            var bytes = File.ReadAllBytes(attachmentLocation);
-            var file = Convert.ToBase64String(bytes);
-            msg.AddAttachment("payslip.pdf", file);
-            await client.SendEmailAsync(msg);
-        }
 
-        private void configurationsToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void ConfigurationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var frm = new frmConfigurations();
             frm.ShowDialog(this);
