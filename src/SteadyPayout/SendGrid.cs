@@ -16,10 +16,7 @@ namespace SteadyPayout
         {
             var apiKey = ConfigurationManager.AppSettings["ApiKey"];
             client = new SendGridClient(apiKey);
-
             fromAddress = new EmailAddress(ConfigurationManager.AppSettings["FromEmailAddress"], "Payslip");
-            //var to = new EmailAddress(emailAddress);
-
         }
 
         public void Send(string toEmailAddress, string subject, string body, byte[] protectedDocument)

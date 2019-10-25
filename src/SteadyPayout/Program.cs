@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows.Forms;
 using WindowsFormsApp2;
+using BusinessLayer;
+using SimpleInjector;
 
 namespace SteadyPayout
 {
     static class Program
     {
+        private static Container container;
 
         /// <summary>
         /// The main entry point for the application.
@@ -15,7 +19,32 @@ namespace SteadyPayout
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Bootstrap();
+            Application.Run(new Form1(container.GetInstance<ISmtpInfo>()));
+        }
+
+        private static void Bootstrap()
+        {
+            // Create the container as usual.
+            container = new Container();
+
+            // Register your types, for instance:
+            if (ConfigurationManager.AppSettings["EmailClientName"] == "Office365")
+            {
+                container.Register<ISmtpInfo, Office365>(Lifestyle.Singleton);
+            }
+            else
+            {
+                container.Register<ISmtpInfo, SendGrid>(Lifestyle.Singleton);
+            }
+
+
+            container.Register<Form1>();
+            container.Register<FrmConfigurations>();
+            container.Register<frmDatabase>();
+
+            // Optionally verify the container.
+            container.Verify();
         }
     }
 }

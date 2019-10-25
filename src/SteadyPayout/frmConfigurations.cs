@@ -5,15 +5,15 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp2
 {
-    public partial class frmConfigurations : Form
+    public partial class FrmConfigurations : Form
     {
         NameValueCollection settings = ConfigurationManager.AppSettings;
-        public frmConfigurations()
+        public FrmConfigurations()
         {
             InitializeComponent();
         }
 
-        private void frmConfigurations_Load(object sender, EventArgs e)
+        private void FrmConfigurations_Load(object sender, EventArgs e)
         {
             txtApplicationDirectory.Text = settings["ApplicationDirectory"];
             txtEncryptionDirectory.Text = settings["EncryptionDirectory"];
@@ -26,9 +26,10 @@ namespace WindowsFormsApp2
             txtEmailSubject.Text = settings["EmailSubject"];
             txtEmailMessage.Text = settings["EmailMessage"];
             txtFromEmailAddress.Text = settings["FromEmailAddress"];
+            txtEmailClientName.Text = settings["EmailClientName"];
         }
 
-        private void cmdSave_Click(object sender, EventArgs e)
+        private void CmdSave_Click(object sender, EventArgs e)
         {
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.AppSettings.Settings["ApplicationDirectory"].Value = txtApplicationDirectory.Text;
@@ -42,6 +43,7 @@ namespace WindowsFormsApp2
             config.AppSettings.Settings["EmailSubject"].Value = txtEmailSubject.Text;
             config.AppSettings.Settings["EmailMessage"].Value = txtEmailMessage.Text;
             config.AppSettings.Settings["FromEmailAddress"].Value = txtFromEmailAddress.Text;
+            config.AppSettings.Settings["EmailClientName"].Value = txtEmailClientName.Text;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
             this.Close();

@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp2
 {
-    partial class frmConfigurations
+    partial class FrmConfigurations
     {
         /// <summary>
         /// Required designer variable.
@@ -49,22 +49,24 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtFromEmailAddress = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.txtEmailClientName = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cmdSave
             // 
-            this.cmdSave.Location = new System.Drawing.Point(499, 323);
+            this.cmdSave.Location = new System.Drawing.Point(499, 349);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(75, 23);
             this.cmdSave.TabIndex = 0;
             this.cmdSave.Text = "Save";
             this.cmdSave.UseVisualStyleBackColor = true;
-            this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
+            this.cmdSave.Click += new System.EventHandler(this.CmdSave_Click);
             // 
             // chkEmail
             // 
             this.chkEmail.AutoSize = true;
-            this.chkEmail.Location = new System.Drawing.Point(139, 184);
+            this.chkEmail.Location = new System.Drawing.Point(139, 210);
             this.chkEmail.Name = "chkEmail";
             this.chkEmail.Size = new System.Drawing.Size(73, 17);
             this.chkEmail.TabIndex = 1;
@@ -121,7 +123,7 @@
             // 
             // txtHost
             // 
-            this.txtHost.Location = new System.Drawing.Point(139, 106);
+            this.txtHost.Location = new System.Drawing.Point(139, 132);
             this.txtHost.Name = "txtHost";
             this.txtHost.Size = new System.Drawing.Size(435, 20);
             this.txtHost.TabIndex = 9;
@@ -129,7 +131,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(32, 109);
+            this.label4.Location = new System.Drawing.Point(32, 135);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 13);
             this.label4.TabIndex = 8;
@@ -137,7 +139,7 @@
             // 
             // txtPort
             // 
-            this.txtPort.Location = new System.Drawing.Point(139, 132);
+            this.txtPort.Location = new System.Drawing.Point(139, 158);
             this.txtPort.Name = "txtPort";
             this.txtPort.Size = new System.Drawing.Size(73, 20);
             this.txtPort.TabIndex = 11;
@@ -145,7 +147,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 135);
+            this.label5.Location = new System.Drawing.Point(32, 161);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 10;
@@ -153,7 +155,7 @@
             // 
             // txtApiKey
             // 
-            this.txtApiKey.Location = new System.Drawing.Point(139, 158);
+            this.txtApiKey.Location = new System.Drawing.Point(139, 184);
             this.txtApiKey.Name = "txtApiKey";
             this.txtApiKey.Size = new System.Drawing.Size(435, 20);
             this.txtApiKey.TabIndex = 13;
@@ -161,7 +163,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(32, 161);
+            this.label6.Location = new System.Drawing.Point(32, 187);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(90, 13);
             this.label6.TabIndex = 12;
@@ -170,7 +172,7 @@
             // chkDelete
             // 
             this.chkDelete.AutoSize = true;
-            this.chkDelete.Location = new System.Drawing.Point(139, 207);
+            this.chkDelete.Location = new System.Drawing.Point(139, 233);
             this.chkDelete.Name = "chkDelete";
             this.chkDelete.Size = new System.Drawing.Size(145, 17);
             this.chkDelete.TabIndex = 14;
@@ -179,7 +181,7 @@
             // 
             // txtEmailMessage
             // 
-            this.txtEmailMessage.Location = new System.Drawing.Point(139, 293);
+            this.txtEmailMessage.Location = new System.Drawing.Point(139, 319);
             this.txtEmailMessage.Name = "txtEmailMessage";
             this.txtEmailMessage.Size = new System.Drawing.Size(435, 20);
             this.txtEmailMessage.TabIndex = 16;
@@ -187,7 +189,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(32, 296);
+            this.label7.Location = new System.Drawing.Point(32, 322);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(78, 13);
             this.label7.TabIndex = 15;
@@ -195,7 +197,7 @@
             // 
             // txtEmailSubject
             // 
-            this.txtEmailSubject.Location = new System.Drawing.Point(139, 264);
+            this.txtEmailSubject.Location = new System.Drawing.Point(139, 290);
             this.txtEmailSubject.Name = "txtEmailSubject";
             this.txtEmailSubject.Size = new System.Drawing.Size(435, 20);
             this.txtEmailSubject.TabIndex = 18;
@@ -203,7 +205,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(32, 267);
+            this.label8.Location = new System.Drawing.Point(32, 293);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(71, 13);
             this.label8.TabIndex = 17;
@@ -211,7 +213,7 @@
             // 
             // txtFromEmailAddress
             // 
-            this.txtFromEmailAddress.Location = new System.Drawing.Point(139, 230);
+            this.txtFromEmailAddress.Location = new System.Drawing.Point(139, 256);
             this.txtFromEmailAddress.Name = "txtFromEmailAddress";
             this.txtFromEmailAddress.Size = new System.Drawing.Size(435, 20);
             this.txtFromEmailAddress.TabIndex = 20;
@@ -219,17 +221,36 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(32, 233);
+            this.label9.Location = new System.Drawing.Point(32, 259);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(99, 13);
             this.label9.TabIndex = 19;
             this.label9.Text = "From Email Address";
             // 
-            // frmConfigurations
+            // txtEmailClientName
+            // 
+            this.txtEmailClientName.Location = new System.Drawing.Point(139, 106);
+            this.txtEmailClientName.Name = "txtEmailClientName";
+            this.txtEmailClientName.Size = new System.Drawing.Size(435, 20);
+            this.txtEmailClientName.TabIndex = 22;
+            this.txtEmailClientName.Text = "SendGrid";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(32, 109);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(60, 13);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Smtp Client";
+            // 
+            // FrmConfigurations
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(610, 359);
+            this.Controls.Add(this.txtEmailClientName);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.txtFromEmailAddress);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtEmailSubject);
@@ -251,9 +272,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chkEmail);
             this.Controls.Add(this.cmdSave);
-            this.Name = "frmConfigurations";
-            this.Text = "frmConfigurations";
-            this.Load += new System.EventHandler(this.frmConfigurations_Load);
+            this.Name = "FrmConfigurations";
+            this.Text = "FrmConfigurations";
+            this.Load += new System.EventHandler(this.FrmConfigurations_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -282,5 +303,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtFromEmailAddress;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtEmailClientName;
+        private System.Windows.Forms.Label label10;
     }
 }

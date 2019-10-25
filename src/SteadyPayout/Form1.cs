@@ -7,16 +7,13 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using SendGrid;
-using SendGrid.Helpers.Mail;
-using SteadyPayout;
 
 namespace WindowsFormsApp2
 {
     public partial class Form1 : Form
     {
+        private readonly ISmtpInfo _smtp;
         OcrTemplates Templates = new OcrTemplates();
         Employees employees = new Employees();
 
@@ -25,14 +22,16 @@ namespace WindowsFormsApp2
         List<Rectangle> recs = new List<Rectangle>();
         readonly List<Rectangle> identificationRecs = new List<Rectangle>();
 
-        public Form1()
+        public Form1(ISmtpInfo smtp)
         {
+            _smtp = smtp;
             InitializeComponent();
         }
 
         private void UpdateStatusBar(string msg)
         {
             toolStripStatusLabel2.Text = msg;
+            Application.DoEvents();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -54,8 +53,7 @@ namespace WindowsFormsApp2
             foreach (string f in Directory.GetFiles(ConfigurationManager.AppSettings.Get("ApplicationDirectory"), "*.pdf"))
             {
                 UpdateStatusBar("Loading Image : " + f);
-                //images.Add(new OcrImage(f, new SteadyPayout.SendGrid()));
-                images.Add(new OcrImage(f, new SteadyPayout.SendGrid()));
+                images.Add(new OcrImage(f, _smtp));
             }
 
             if (images.Any())
@@ -246,12 +244,13 @@ namespace WindowsFormsApp2
             pictureBox1.Refresh();
         }
 
-
         private void TemplateNew_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Portable Document|*.pdf";
             var res = dialog.ShowDialog();
+            recs.Clear();
+            identificationRecs.Clear();
             if (res == DialogResult.OK)
             {
                 var d = dialog.FileName;
@@ -275,12 +274,10 @@ namespace WindowsFormsApp2
                 var frm = new InputDialogBox(recs, images[0].GetImage().ToByteArray(), identificationRecs, toolStripStatusLabel2.Text.Substring(toolStripStatusLabel2.Text.LastIndexOf(":") + 1).Trim());
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
+                    recs.Clear();
+                    identificationRecs.Clear();
                     pictureBox1.Image = null;
                     saveToolStripMenuItem.Enabled = false;
-                }
-                else
-                {
-
                 }
             }
             else
@@ -346,11 +343,9 @@ namespace WindowsFormsApp2
             frm.ShowDialog(this);
         }
 
-
-
         private void ConfigurationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var frm = new frmConfigurations();
+            var frm = new FrmConfigurations();
             frm.ShowDialog(this);
         }
     }
