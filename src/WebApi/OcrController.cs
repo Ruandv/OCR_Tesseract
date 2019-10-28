@@ -43,9 +43,11 @@ namespace WebApi
 
                 var filePath = "C:/Logs/Images/" + imageName;
                 postedFile.SaveAs(filePath);
-
+                Byte[] bytes = File.ReadAllBytes(filePath);
+                String file = Convert.ToBase64String(bytes);
+                return Ok(file);
             }
-            return Ok("Post Good ");
+            return Ok();
         }
     }
 }
