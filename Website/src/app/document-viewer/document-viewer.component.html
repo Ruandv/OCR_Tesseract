@@ -1,8 +1,43 @@
-<div class="menu">
-  <div class="btn btn-sm btn-secondary" (click)="clear()">Clear</div>
-  <div class="btn btn-sm btn-secondary" (click)="zoomIn()">Zoom +</div>
-  <div class="btn btn-sm btn-secondary" (click)="zoomOut()">Zoom -</div>
+<div>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link active" href="#" (click)="ocrData()">OCR</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="#" (click)="clear()">Clear</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="#" (click)="zoomOut()">Zoom -</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="zoomIn()">Zoom +</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled">Y: {{MyY| number:'3.1-1'}}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled">X: {{MyX| number:'3.1-1' }}</a>
+    </li>
+  </ul>
 </div>
-<div class="canvasHolder" [ngStyle]="{'max-width': width*2 +'px','max-height': height*2 +'px'}">
-  <canvas #canvas [ngStyle]="{'background-image': 'url(' + source + ')'}"></canvas>
+<div>
 </div>
+<div class="canvasHolder">
+  <div class="legends" [ngStyle]="{'width.%':10}">
+    <div class="header">LEGEND HOLDER</div>
+    <div class="header">{{fileName}}</div>
+    <ul *ngFor="let region of regions ; let i = index">
+      <li (dblclick)="setDescription(i)" (click)="setActive(i)">{{i}}. {{region.description}}</li>
+    </ul>
+  </div>
+  <canvas (mouseup)='mouseUp($event)' (mousedown)="mouseDown($event)" (mousemove)="mouseMove($event)" #canvas></canvas>
+</div>
+<div id="mainDoc">
+</div>
+
+<app-modal id="custom-modal-1">
+  <h1>{{modalInfo.header}}</h1>
+  <p>Home page text: <input type="text" [(ngModel)]="modalInfo.textBinding" /></p>
+  <button (click)="closeModal('custom-modal-1');">Close</button>
+</app-modal>
+

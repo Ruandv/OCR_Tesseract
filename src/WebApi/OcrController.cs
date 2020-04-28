@@ -1,12 +1,10 @@
-﻿using IntegrationContracts;
-using MassTransit;
+﻿using MassTransit;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.Cors;
 
 namespace WebApi
 {
@@ -41,10 +39,21 @@ namespace WebApi
                 var imageName = new String(Path.GetFileNameWithoutExtension(postedFile.FileName).Take(10).ToArray()).Replace(" ", "-");
                 imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(postedFile.FileName);
 
-                var filePath = "C:/Logs/Images/" + imageName;
-                postedFile.SaveAs(filePath);
-                Byte[] bytes = File.ReadAllBytes(filePath);
+                var filePath = "C:/Logs/Images/";
+                postedFile.SaveAs(Path.Combine(filePath, imageName));
+                try
+                {
+                    var v = new PDF();
+                    v.ConvertPDFToPng(filePath, imageName);
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+                Byte[] bytes = File.ReadAllBytes(Path.Combine(filePath, imageName.Replace("pdf","png")));
                 String file = Convert.ToBase64String(bytes);
+                Console.Write(file);
                 return Ok(file);
             }
             return Ok();

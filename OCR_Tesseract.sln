@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCREndpoint", "src\OCREndpo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationContracts", "Src\IntegrationContracts\IntegrationContracts.csproj", "{980703A9-10AA-4F24-A850-693DFAD4AA5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR_API", "src\OCR_API\OCR_API.csproj", "{B986EB62-F9F7-450F-B2AB-FF5BBE28FF2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageManipulations", "src\ImageManipulations\ImageManipulations.csproj", "{B61B69F7-ED24-490C-BF9E-9F0DC2950FF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{980703A9-10AA-4F24-A850-693DFAD4AA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{980703A9-10AA-4F24-A850-693DFAD4AA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{980703A9-10AA-4F24-A850-693DFAD4AA5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B986EB62-F9F7-450F-B2AB-FF5BBE28FF2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B986EB62-F9F7-450F-B2AB-FF5BBE28FF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B986EB62-F9F7-450F-B2AB-FF5BBE28FF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B986EB62-F9F7-450F-B2AB-FF5BBE28FF2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B61B69F7-ED24-490C-BF9E-9F0DC2950FF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B61B69F7-ED24-490C-BF9E-9F0DC2950FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B61B69F7-ED24-490C-BF9E-9F0DC2950FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B61B69F7-ED24-490C-BF9E-9F0DC2950FF6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

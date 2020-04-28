@@ -47,8 +47,8 @@ namespace WindowsFormsApp2
 
             UpdateStatusBar("Loading Images");
             images.Clear();
-            pictureBox1.Width = 0;
-            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+            //pictureBox1.Width = 0;
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
             foreach (string f in Directory.GetFiles(ConfigurationManager.AppSettings.Get("ApplicationDirectory"), "*.pdf"))
             {
@@ -57,7 +57,10 @@ namespace WindowsFormsApp2
             }
 
             if (images.Any())
+            {
                 pictureBox1.Image = images[0].GetImage();
+               pictureBox1.ClientSize = new Size(pictureBox1.Image.Width/2, pictureBox1.Image.Height/2);
+            }
 
             toolStripStatusLabel1.Text = "Total Pages : " + images.Count;
             processDocuments.Enabled = (this.images.Any());

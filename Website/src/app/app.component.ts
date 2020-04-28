@@ -8,21 +8,27 @@ import { DocumentService } from "./services/document.service";
 })
 export class AppComponent implements OnInit {
   data$: any;
-  title = "Website";
+  title = "Simple OCR";
   documents: any[] = [];
-
+  imageSource = "";
   @ViewChild("documentInput")
   documentInputRef: ElementRef;
+  @ViewChild("uploadButton")
+  uploadButtonRef: ElementRef;
 
   ngOnInit(): void {
     this.service.getDocuments().subscribe(x => {
       this.data$ = x;
+      this.imageSource = "data:image/png;base64," + x[1];
     });
   }
 
   uploadDocument(): void {
+    this.uploadButtonRef.nativeElement.className = 'disableButtonClass';
     this.service.uploadDocument(this.documents).subscribe(x => {
-      alert("B");
+      this.imageSource = "data:image/png;base64," + JSON.parse(x.text()).file;
+      this.title = JSON.parse(x.text()).fileName;
+      this.uploadButtonRef.nativeElement.className = 'btn btn-sm btn-secondary';
     });
   }
 
@@ -32,8 +38,9 @@ export class AppComponent implements OnInit {
         file: file,
         type: ""
       });
+      this.uploadDocument();
     }
   }
 
-  constructor(private service: DocumentService) {}
+  constructor(private service: DocumentService) { }
 }

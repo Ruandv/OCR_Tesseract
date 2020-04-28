@@ -35,10 +35,17 @@ namespace BusinessLayer
 
         private void SetBasics(string pdfImagePath)
         {
-            myPdfImage = File.ReadAllBytes(pdfImagePath);
-            ConvertPdfToPng(myPdfImage);
-            if (ConfigurationManager.AppSettings.Get("DeleteUnencryptedFiles").ToUpper() == "TRUE")
-                File.Delete(pdfImagePath);
+            try
+            {
+                myPdfImage = File.ReadAllBytes(pdfImagePath);
+                ConvertPdfToPng(myPdfImage);
+                if (ConfigurationManager.AppSettings.Get("DeleteUnencryptedFiles").ToUpper() == "TRUE")
+                    File.Delete(pdfImagePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         private void ConvertPdfToPng(byte[] pdfImage)

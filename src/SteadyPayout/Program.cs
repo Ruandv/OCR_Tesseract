@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using WindowsFormsApp2;
 using BusinessLayer;
 using SimpleInjector;
+using SimpleInjector.Lifestyles;
 
 namespace SteadyPayout
 {
@@ -27,7 +28,7 @@ namespace SteadyPayout
         {
             // Create the container as usual.
             container = new Container();
-
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             // Register your types, for instance:
             if (ConfigurationManager.AppSettings["EmailClientName"] == "Office365")
             {
@@ -39,9 +40,9 @@ namespace SteadyPayout
             }
 
 
-            container.Register<Form1>();
-            container.Register<FrmConfigurations>();
-            container.Register<frmDatabase>();
+            container.Register<Form1>(Lifestyle.Scoped);
+            container.Register<FrmConfigurations>(Lifestyle.Scoped);
+            container.Register<frmDatabase>(Lifestyle.Scoped);
 
             // Optionally verify the container.
             container.Verify();

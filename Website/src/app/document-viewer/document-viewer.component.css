@@ -1,11 +1,24 @@
 canvas {
   border: 1px solid #000;
-}
-
-.menu > .btn {
-  margin:2px;
+  background-color: white;
 }
 
 .canvasHolder{
+  display: flex;
+  flex-direction: row;
+  background: #ECE6EC;
   overflow: scroll;
 }
+
+.legends{
+  min-width:200px;
+  background: #C3CFDD;
+}
+.header{
+  background:#E1DFE0
+}
+
+li:nth-last-child(-n+2) {
+  width:100px;
+}
+
