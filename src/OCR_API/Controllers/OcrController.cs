@@ -16,13 +16,6 @@ namespace OCR_API.Controllers
     [Route("api/Ocr")]
     public class OcrController : ControllerBase
     {
-        //public IBusControl Bus { get; }
-        //public Uri uri = new Uri("rabbitmq://localhost/OCREndpoint_queue");
-        //public OcrController()
-        //{
-
-        //    //ep = Bus.GetSendEndpoint(new Uri("rabbitmq://localhost/OCREndpoint_queue"));
-        //}
         string filePath = "C:/Logs/Images/";
         private string imageName;
 

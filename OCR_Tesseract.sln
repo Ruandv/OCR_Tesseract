@@ -11,15 +11,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "src\Busine
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TessaractTemplates", "src\TessaractTemplates\TessaractTemplates.csproj", "{703E97D0-3502-4322-A0AF-A9DA0E77EA8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "Src\WebApi\WebApi.csproj", "{51CF7A39-FBE8-48E0-9006-DCE5DCE0A4CC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCREndpoint", "src\OCREndpoint\OCREndpoint.csproj", "{CFD99544-232E-4681-A606-72812E2671BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationContracts", "Src\IntegrationContracts\IntegrationContracts.csproj", "{980703A9-10AA-4F24-A850-693DFAD4AA5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR_API", "src\OCR_API\OCR_API.csproj", "{B986EB62-F9F7-450F-B2AB-FF5BBE28FF2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCR_API", "src\OCR_API\OCR_API.csproj", "{B986EB62-F9F7-450F-B2AB-FF5BBE28FF2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageManipulations", "src\ImageManipulations\ImageManipulations.csproj", "{B61B69F7-ED24-490C-BF9E-9F0DC2950FF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageManipulations", "src\ImageManipulations\ImageManipulations.csproj", "{B61B69F7-ED24-490C-BF9E-9F0DC2950FF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCR.Database.Layer", "src\OCR.Database.Layer\OCR.Database.Layer.csproj", "{CFD477F7-B1F6-4C96-A30E-0E843CDC9CE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,6 @@ Global
 		{703E97D0-3502-4322-A0AF-A9DA0E77EA8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{703E97D0-3502-4322-A0AF-A9DA0E77EA8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{703E97D0-3502-4322-A0AF-A9DA0E77EA8F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{51CF7A39-FBE8-48E0-9006-DCE5DCE0A4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51CF7A39-FBE8-48E0-9006-DCE5DCE0A4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51CF7A39-FBE8-48E0-9006-DCE5DCE0A4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51CF7A39-FBE8-48E0-9006-DCE5DCE0A4CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CFD99544-232E-4681-A606-72812E2671BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFD99544-232E-4681-A606-72812E2671BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFD99544-232E-4681-A606-72812E2671BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +59,10 @@ Global
 		{B61B69F7-ED24-490C-BF9E-9F0DC2950FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B61B69F7-ED24-490C-BF9E-9F0DC2950FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B61B69F7-ED24-490C-BF9E-9F0DC2950FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFD477F7-B1F6-4C96-A30E-0E843CDC9CE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFD477F7-B1F6-4C96-A30E-0E843CDC9CE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFD477F7-B1F6-4C96-A30E-0E843CDC9CE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFD477F7-B1F6-4C96-A30E-0E843CDC9CE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

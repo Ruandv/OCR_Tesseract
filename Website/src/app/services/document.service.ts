@@ -4,18 +4,21 @@ import { Observable } from "rxjs/internal/Observable";
 import * as pako from 'pako';
 import { map } from "rxjs/operators";
 import { Region } from "src/Models/Region";
+import { BaseService } from "./base.service";
 
 @Injectable({
   providedIn: "root"
 })
-export class DocumentService {
-  private webApiUrl = "https://localhost:44304/api/Ocr/"; // URL to web api
-  // private webApiUrl = "https://localhost:5001/api/Ocr/"; // URL to web api
+export class DocumentService extends BaseService {
+  controllerName = "OCR";
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+    super();
+  }
+
   getDocuments(): Observable<any> {
     return this.http
-      .get(this.webApiUrl + "GetDocuments")
+      .get(this.webApiUrl + `/${this.controllerName}/GetDocuments`)
       .pipe(map(res => res.json()));
   }
 
@@ -32,13 +35,13 @@ export class DocumentService {
     // options.headers.set("content-type","application/x-www-form-urlencoded");
     options.headers.set("Accept-Encoding", "GZIP");
     //options.headers.set("Access-Control-Allow-Headers","*")
-    return this.http.post(this.webApiUrl + "UploadDocument", data, options)
+    return this.http.post(this.webApiUrl + `/${this.controllerName}/UploadDocument`, data, options)
   }
 
-  ocrDocument(fileName:string,regions: Region[]): Observable<any> {
+  ocrDocument(fileName: string, regions: Region[]): Observable<any> {
     const options = new RequestOptions();
     options.headers = new Headers();
     options.headers.set("content-type", "application/json");
-    return this.http.post(this.webApiUrl + `ocrDocument/${fileName}`, regions, options);
+    return this.http.post(this.webApiUrl + `/${this.controllerName}/ocrDocument/${fileName}`, regions, options);
   }
 }

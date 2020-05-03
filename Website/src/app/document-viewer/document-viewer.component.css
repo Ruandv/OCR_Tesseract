@@ -3,22 +3,35 @@ canvas {
   background-color: white;
 }
 
-.canvasHolder{
+.canvasHolder {
   display: flex;
+  padding: 10px;
+  overflow: auto;
   flex-direction: row;
-  background: #ECE6EC;
-  overflow: scroll;
+  background: #ece6ec;
 }
 
-.legends{
-  min-width:200px;
-  background: #C3CFDD;
+.legends {
+  min-width: 200px;
+  background: #c3cfdd;
+  overflow-y: scroll;
+  height: 85vh;
 }
-.header{
-  background:#E1DFE0
-}
-
-li:nth-last-child(-n+2) {
-  width:100px;
+.header {
+  background: #e1dfe0;
 }
 
+.coordinate {
+  font-size: xx-small;
+  position: relative;
+  height: 20px;
+  left: 50%;
+  background: transparent;
+  padding: 2px;
+  background: s;
+}
+
+.activeRegion {
+  padding: 2px;
+  border: 1px solid black;
+}

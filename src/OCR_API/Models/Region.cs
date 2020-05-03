@@ -2,6 +2,8 @@
 {
     public class Region
     {
+        public int Index { get; set; }
+        public string RegionType { get; set; }
         public string Description { get; set; }
         public Point TopLeft { get; set; }
         public int Width { get; set; }

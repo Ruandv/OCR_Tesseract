@@ -1,17 +1,57 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      {{ title }}
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light  navbar-hover">
+  <a class="navbar-brand" href="#">
+    <img
+      src="data:image/jpeg;base64,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"
+      width="30" height="30" class="d-inline-block align-top" alt="">
+    Tesserac OCR Template Designer
+  </a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Templates
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="#" (click)='showNewTemplate("block")'>New Template</a></li>
+          <li><a class="dropdown-item dropdown-toggle" href="#">Existing Templates</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" *ngFor="let ocrtemplate of templates ; let i = index"
+                  (click)="getTemplateImage(ocrtemplate)">{{ocrtemplate.templateDescription}}</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div #uploadButton class="btn btn-sm btn-secondary" (click)="uploadDocument()">
-        Upload Document
+</nav>
+
+<div class="container">
+
+  <form #frm #templateForm="ngForm" (ngSubmit)="uploadDocument(templateForm)">
+    <div class="form-group  mb-2">
+      <label for="TemplateName">Template Name</label>
+      <input type="text" class="form-control" name="TemplateName" ngModel required
+        #TemplateName="ngModel">{{templateName}}
+    </div>
+
+    <div class="input-group  mb-2">
+      <div class="custom-file">
+        <input type="file" id="inputGroupFile01" class="custom-file-input" aria-describedby="inputGroupFileAddon01"
+          accept=".pdf, .jpg, .tif, .png" (input)="onInput($event)">
+        <label class="custom-file-label" for="inputGroupFile01">{{fileToUpload}}</label>
       </div>
     </div>
-  </div>
-  <input #documentInput id="documents" class="form-control hidden" type="file" multiple accept=".pdf, .jpg, .tif, .png"
-    (input)="onInput($event)" />
-  <app-document-viewer fileName="{{title}}" source="{{ imageSource }}"></app-document-viewer>
+
+    <div class="btn-group mr-2" role="group" aria-label="Second group">
+      <button type="submit" class="btn btn-primary">Upload</button>
+      <button type="button" (click)='showNewTemplate("none")' class="btn btn-warning">Cancel</button>
+    </div>
+    <div #uploadStatus class="alert alert-primary" role="alert">
+      Uploading Document... Please wait
+    </div>
+  </form>
+  <app-document-viewer fileName="{{templateName}}" source="{{ imageSource }}" [regions]="regions" (templateSaved)="onTemplateSaved()">
+  </app-document-viewer>
 </div>

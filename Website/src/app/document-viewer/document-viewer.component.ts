@@ -1,21 +1,33 @@
-import { Headers } from '@angular/http';
-import { DocumentService } from './../services/document.service';
+import { ModalEmailInfo } from './../../Models/Region';
+import { OcrTemplateService } from './../services/template.service';
 import {
   Component,
   Input,
   ViewChild,
   ElementRef,
   AfterViewInit,
+  OnChanges,
+  SimpleChanges,
+  Output,
+  EventEmitter,
 } from "@angular/core";
 import { Region, Point, ModalInfo } from "src/Models/Region";
 import { ModalService } from '../services/modal.service';
-
+export enum Keys {
+  Enter = 13,
+  Delete = 46,
+  Backspace = 8,
+  LeftArrow = 37,
+  RightArrow = 39,
+  UpArrow = 38,
+  DownArrow = 40
+}
 @Component({
   selector: "app-document-viewer",
   templateUrl: "./document-viewer.component.html",
   styleUrls: ["./document-viewer.component.css"],
 })
-export class DocumentViewerComponent implements AfterViewInit {
+export class DocumentViewerComponent implements AfterViewInit, OnChanges {
   @Input()
   get source(): string {
     return this._source;
@@ -41,7 +53,7 @@ export class DocumentViewerComponent implements AfterViewInit {
         this.canvasCopy.width = this.myImage.width;
         this.canvasCopy.height = this.myImage.height;
 
-        var copyContext = this.canvasCopy.getContext("2d");
+        const copyContext = this.canvasCopy.getContext("2d");
         copyContext.drawImage(this.myImage, 0, 0);
 
         this.canvas.nativeElement.width = this.myImage.width * this.ratio;
@@ -58,23 +70,28 @@ export class DocumentViewerComponent implements AfterViewInit {
           this.canvas.nativeElement.width,
           this.canvas.nativeElement.height
         );
+        this.drawRegions();
       };
     }
   }
   @Input()
+  public regions: Region[];
+
+  @Input()
   public fileName: string;
-  @Input()
-  public width = 600;
-  @Input()
-  public height = 800;
 
   @ViewChild("canvas")
   public canvas: ElementRef;
 
-  @ViewChild("img")
-  public imageCan: any;
+  @Output()
+  templateSaved = new EventEmitter();
 
-  private modalInfo = new ModalInfo();
+  private activeRegion: Region;
+  private regionType: string;
+
+  public width = 600;
+  public height = 800;
+
   private myImage = new Image();
   private cx: CanvasRenderingContext2D;
   private _source;
@@ -82,24 +99,23 @@ export class DocumentViewerComponent implements AfterViewInit {
   private ratio: any;
   private maxWidth = 600;
   private maxHeight = 800;
-  public regions: Region[];
 
-  private endPos: Point;
-  private startPos: Point;
+  modalInfo: any;
+  emailModalInfo = new ModalEmailInfo();
+  MyX: any;
+  MyY: any;
 
-  private MyX: any;
-  private MyY: any;
-
-  constructor(private service: DocumentService, private modalService: ModalService) {
-    this.regions = [];
-    // this.modalInfo.header = "Edit Description";
-    // this.modalInfo.textBinding = "SDF";
+  constructor(private service: OcrTemplateService, public modalService: ModalService) {
+    this.modalInfo = new ModalInfo();
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("changes detected");
   }
 
   ngAfterViewInit(): void {
     const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
     this.cx = canvasEl.getContext("2d");
-
+    this.regionType = 'Identifier';
     // set the width and height
     canvasEl.width = this.width;
     canvasEl.height = this.height;
@@ -108,9 +124,10 @@ export class DocumentViewerComponent implements AfterViewInit {
     this.cx.lineWidth = 3;
     this.cx.lineCap = "round";
     this.cx.strokeStyle = "#000";
+
   }
 
-  drawOnCanvas(topLeftPos: Point, bottomRightPos: Point, strokeColor: string) {
+  drawOnCanvas(topLeftPos: Point, width: number, heigh: number, strokeColor: string) {
     if (topLeftPos.x < 0 || topLeftPos.y < 0) {
       return;
     }
@@ -130,7 +147,7 @@ export class DocumentViewerComponent implements AfterViewInit {
     //   (this.myImage.width * (bottomRightPos.y / this.maxWidth * 100) / 100)
     //    - (this.myImage.width * (topLeftPos.y / this.maxWidth * 100) / 100)
     // );
-    //copyContext.stroke();
+    // copyContext.stroke();
 
     // start our drawing path
     this.cx.beginPath();
@@ -138,10 +155,8 @@ export class DocumentViewerComponent implements AfterViewInit {
     this.cx.rect(
       topLeftPos.x * (this.canvas.nativeElement.width / this.maxWidth),
       topLeftPos.y * (this.canvas.nativeElement.width / this.maxWidth),
-      bottomRightPos.x * (this.canvas.nativeElement.width / this.maxWidth) -
-      topLeftPos.x * (this.canvas.nativeElement.width / this.maxWidth),
-      bottomRightPos.y * (this.canvas.nativeElement.width / this.maxWidth) -
-      topLeftPos.y * (this.canvas.nativeElement.width / this.maxWidth)
+      width * (this.canvas.nativeElement.width / this.maxWidth),
+      heigh * (this.canvas.nativeElement.width / this.maxWidth)
     );
 
     // strokes the current path with the styles we set earlier
@@ -161,42 +176,48 @@ export class DocumentViewerComponent implements AfterViewInit {
     this.reDrawImage(undefined);
   }
 
-  ocrRecord(region, index) {
-    const data: any = {
-      description: region.description,
-      topLeft: {
-        x: Math.round(this.myImage.width * (region.topLeft.x / this.maxWidth * 100) / 100),
-        y: Math.round(this.myImage.width * (region.topLeft.y / this.maxWidth * 100) / 100)
-      },
-      width: Math.round((this.myImage.width * (region.bottomRight.x / this.maxWidth * 100) / 100)
-        - this.myImage.width * (region.topLeft.x / this.maxWidth * 100) / 100),
-      height: Math.round((this.myImage.width * (region.bottomRight.y / this.maxWidth * 100) / 100)
-        - this.myImage.width * (region.topLeft.y / this.maxWidth * 100) / 100)
-    };
-    this.service.ocrDocument(this.fileName,[data]).subscribe(x => {
-      this.regions[index].description = x._body;
-      console.log(x._body);
+  saveTemplate() {
+    this.service.saveTemplate(this.regions, this.fileName).subscribe(x => {
+      this.templateSaved.emit('Saved');
     });
   }
+  // ocrRecord(region: Region, index) {
+  //   const data: any = {
+  //     description: region.description,
+  //     topLeft: {
+  //       x: Math.round(this.myImage.width * (region.topLeft.x / this.maxWidth * 100) / 100),
+  //       y: Math.round(this.myImage.width * (region.topLeft.y / this.maxWidth * 100) / 100)
+  //     },
+  //     width: Math.round((this.myImage.width * (region.bottomRight.x / this.maxWidth * 100) / 100)
+  //       - this.myImage.width * (region.topLeft.x / this.maxWidth * 100) / 100),
+  //     height: Math.round((this.myImage.width * (region.bottomRight.y / this.maxWidth * 100) / 100)
+  //       - this.myImage.width * (region.topLeft.y / this.maxWidth * 100) / 100)
+  //   };
+  //   // this.service.ocrDocument(this.fileName, [data]).subscribe(x => {
+  //   //   this.regions[index].description = x._body;
+  //   //   console.log(x._body);
+  //   // });
+  // }
 
   ocrData() {
-    const re = [];
-    this.regions.forEach(region => {
-      re.push({
-        description: region.description,
-        topLeft: {
-          x: Math.round(this.myImage.width * (region.topLeft.x / this.maxWidth * 100) / 100),
-          y: Math.round(this.myImage.width * (region.topLeft.y / this.maxWidth * 100) / 100)
-        },
-        width: Math.round((this.myImage.width * (region.bottomRight.x / this.maxWidth * 100) / 100)
-          - this.myImage.width * (region.topLeft.x / this.maxWidth * 100) / 100),
-        height: Math.round((this.myImage.width * (region.bottomRight.y / this.maxWidth * 100) / 100)
-          - this.myImage.width * (region.topLeft.y / this.maxWidth * 100) / 100)
-      });
-    });
-    this.service.ocrDocument(this.fileName,re).subscribe(x => {
-      alert("asdf");
-    });
+    // const re = [];
+    // this.regions.forEach(region => {
+    //   re.push({
+    //     description: region.description,
+    //     topLeft: {
+    //       x: Math.round(this.myImage.width * (region.topLeft.x / this.maxWidth * 100) / 100),
+    //       y: Math.round(this.myImage.width * (region.topLeft.y / this.maxWidth * 100) / 100)
+    //     },
+    //     width: Math.round((this.myImage.width * (region.bottomRight.x / this.maxWidth * 100) / 100)
+    //       - this.myImage.width * (region.topLeft.x / this.maxWidth * 100) / 100),
+    //     height: Math.round((this.myImage.width * (region.bottomRight.y / this.maxWidth * 100) / 100)
+    //       - this.myImage.width * (region.topLeft.y / this.maxWidth * 100) / 100)
+    //   });
+    // });
+    // // this.service.ocrDocument(this.fileName, re).subscribe(x => {
+    // //   this.regions[0].description = x._body;
+    // //   console.log(x._body);
+    // // });
   }
 
   clear(): void {
@@ -205,27 +226,34 @@ export class DocumentViewerComponent implements AfterViewInit {
     this.reDrawImage(undefined);
   }
 
-
   mouseUp(event) {
-    this.endPos = {
-      x: this.MyX,
-      y: this.MyY,
-    };
-    const data = {
-      description: `Region ${this.regions.length}`,
-      topLeft: this.startPos,
-      bottomRight: this.endPos,
-    };
-    this.regions.push(data);
-    this.drawRegions(undefined);
-    this.ocrRecord(data, this.regions.length - 1);
+    this.activeRegion.width = Math.abs(this.MyX - this.activeRegion.topLeft.x);
+    this.activeRegion.height = Math.abs(this.MyY - this.activeRegion.topLeft.y);
+    this.regions.push(this.activeRegion);
+    this.drawRegions(this.regions.length);
+    // this.ocrRecord(this.newRegion, this.regions.length - 1);
+
   }
 
   mouseDown(event) {
-    this.startPos = {
-      x: this.MyX,
-      y: this.MyY,
-    };
+    if (!this.isInRegion()) {
+      this.activeRegion = new Region();
+      this.activeRegion.description = 'Some D';
+      this.activeRegion.index = this.regions.length - 1;
+      this.activeRegion.regionType = this.regionType;
+      this.activeRegion.topLeft = {
+        x: this.MyX,
+        y: this.MyY,
+      };
+    }
+  }
+
+  isInRegion(): boolean {
+    const res = this.regions.find(x => x.topLeft.x < this.MyX && (x.topLeft.x + x.width) > this.MyX &&
+      x.topLeft.y < this.MyY && (x.topLeft.y + x.height) > this.MyY);
+    this.activeRegion = res;
+
+    return this.activeRegion !== undefined;
   }
 
   mouseMove(event) {
@@ -238,7 +266,29 @@ export class DocumentViewerComponent implements AfterViewInit {
       (this.canvas.nativeElement.width / this.maxWidth);
   }
 
+  changeType(type: string) {
+    console.log("Type set to " + type);
+    this.regionType = type;
+  }
+
+  isActiveRegion(index): boolean {
+    if (!this.activeRegion) {
+      return false;
+    }
+    return this.activeRegion.index === index;
+  }
+  showEmailModal() {
+    this.modalInfo = new ModalEmailInfo();
+    this.modalInfo.header = "Sending Email";
+    this.modalInfo.to = 'Ruan.dv@k2.com';
+    this.modalInfo.subject = "Hello World";
+    this.modalInfo.message = "This is me... :-)";
+
+    this.modalService.open('custom-email-modal');
+  }
+
   setDescription(index) {
+    this.modalInfo = new ModalInfo();
     this.modalInfo.header = "Edit Description";
     this.modalInfo.index = index;
     this.modalInfo.textBinding = this.regions[index].description;
@@ -250,9 +300,44 @@ export class DocumentViewerComponent implements AfterViewInit {
     this.modalService.close(id);
   }
 
+  regionKeyDown(event, index): void {
+    switch (event.keyCode) {
+      case Keys.Delete:
+        this.regions.splice(index, 1);
+        this.reDrawImage(undefined);
+        event.preventDefault();
+        break;
+      case Keys.UpArrow:
+        this.activeRegion.topLeft.y -= 1;
+        // this.activeRegion.bottomRight.y -= 1;
+        event.preventDefault();
+        break;
+      case Keys.DownArrow:
+        this.activeRegion.topLeft.y += 1;
+        // this.activeRegion.bottomRight.y += 1;
+        event.preventDefault();
+        break;
+      case Keys.LeftArrow:
+        this.activeRegion.topLeft.x -= 1;
+        // this.activeRegion.bottomRight.x -= 1;
+        event.preventDefault();
+        break;
+      case Keys.RightArrow:
+        this.activeRegion.topLeft.x += 1;
+        // this.activeRegion.bottomRight.x += 1;
+        event.preventDefault();
+        break;
+    }
+    this.reDrawImage(this.activeRegion.index);
+    console.log(event.keyCode);
+  }
+
   setActive(index) {
+    console.log("index " + index);
+    this.activeRegion = this.regions[index];
     this.reDrawImage(index);
   }
+
   reDrawImage(activeRegion: number) {
     const copyContext = this.canvasCopy.getContext("2d");
     copyContext.drawImage(this.myImage, 0, 0);
@@ -265,12 +350,12 @@ export class DocumentViewerComponent implements AfterViewInit {
     this.drawRegions(activeRegion);
   }
 
-  drawRegions(activeRegion: number) {
+  drawRegions(activeRegion?: number) {
     this.regions.forEach((element, k) => {
       if (k === activeRegion) {
-        this.drawOnCanvas(element.topLeft, element.bottomRight, "red");
+        this.drawOnCanvas(element.topLeft, element.width, element.height, "red");
       } else {
-        this.drawOnCanvas(element.topLeft, element.bottomRight, "black");
+        this.drawOnCanvas(element.topLeft, element.width, element.height, "black");
       }
     });
   }

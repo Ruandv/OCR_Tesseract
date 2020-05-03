@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -5,8 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using OCR.Database.Layer;
+using OCR_API.Configurations;
 using System.IO.Compression;
-using System.Linq;
+using System.Text.Json;
 
 namespace OCR_API
 {
@@ -40,7 +43,15 @@ namespace OCR_API
                 options.Level = CompressionLevel.Fastest;
             });
 
-            services.AddControllers();
+            services.Configure<OcrTemplateConfiguration>(Configuration.GetSection("TemplateSettings"));
+            services.AddDbContext<OCRContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            //services.AddMvc()
+            //        .AddJsonOptions(opt => opt.JsonSerializerOptions.PropertyNamingPolicy = null);
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                });
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -66,8 +77,8 @@ namespace OCR_API
             }
 
             app.UseHttpsRedirection();
-            
-            
+
+
             app.UseRouting();
             app.UseMiddleware<Compression.RequestCompressionMiddleware>();
             app.UseSwaggerUI(c =>

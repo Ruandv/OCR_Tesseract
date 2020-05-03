@@ -1,22 +1,29 @@
 <div>
   <ul class="nav justify-content-end">
     <li class="nav-item">
-      <a class="nav-link active" href="#" (click)="ocrData()">OCR</a>
+      <a class="nav-link active" href="#" (click)="showEmailModal()" data-toggle="tooltip" data-placement="top" title="Email"><i
+          class="fa fa-paper-plane"></i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" href="#" (click)="clear()">Clear</a>
+      <a class="nav-link active" href="#" (click)="ocrData()" data-toggle="tooltip" data-placement="top" title="OCR"><i
+          class="fa fa-magic"></i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active" href="#" (click)="zoomOut()">Zoom -</a>
+      <a class="nav-link active" href="#" (click)="clear()" data-toggle="tooltip" data-placement="top" title="Clear"><i
+          class="fa fa-blind" alt='tsts'></i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" (click)="zoomIn()">Zoom +</a>
+      <a class="nav-link active" href="#" (click)="zoomOut()" data-toggle="tooltip" data-placement="top"
+        title="Zoom out"><i class="fa fa-search-minus"></i></a>
     </li>
     <li class="nav-item">
-      <a class="nav-link disabled">Y: {{MyY| number:'3.1-1'}}</a>
+      <a class="nav-link" href="#" (click)="zoomIn()" data-toggle="tooltip" data-placement="top" title="Zoom in"><i
+          class="fa fa-search-plus"></i></a>
     </li>
+
     <li class="nav-item">
-      <a class="nav-link disabled">X: {{MyX| number:'3.1-1' }}</a>
+      <a class="nav-link" href="#" (click)="saveTemplate()" data-toggle="tooltip" data-placement="top" title="Save"><i
+          class="fa fa-save"></i></a>
     </li>
   </ul>
 </div>
@@ -25,14 +32,24 @@
 <div class="canvasHolder">
   <div class="legends" [ngStyle]="{'width.%':10}">
     <div class="header">LEGEND HOLDER</div>
-    <div class="header">{{fileName}}</div>
+    <div class="btn-group btn-group-toggle"  data-toggle="buttons">
+      <label class="btn btn-secondary active btn-sm" (click)='changeType("Identifier")' >
+        <input type="radio" name="options" id="Identifier" autocomplete="off" >Identifier
+      </label>
+      <label class="btn btn-secondary  btn-sm" (click)='changeType("Region")'>
+        <input type="radio" name="options" id="Region" autocomplete="off" > Region
+      </label>
+    </div>
     <ul *ngFor="let region of regions ; let i = index">
-      <li (dblclick)="setDescription(i)" (click)="setActive(i)">{{i}}. {{region.description}}</li>
+      <li tabindex='-1' [ngClass]="{'border border-primary': isActiveRegion(i)}" (dblclick)="setDescription(i)"
+        (keydown)="regionKeyDown($event,i)" (click)="setActive(i)">{{i}}. {{region|json}} {{region.regionType}}</li>
     </ul>
   </div>
+  <div class="coordinate disabled">X: {{MyX| number:'3.1-1' }}</div>
+  <div class="coordinate  disabled">Y: {{MyY| number:'3.1-1'}}</div>
   <canvas (mouseup)='mouseUp($event)' (mousedown)="mouseDown($event)" (mousemove)="mouseMove($event)" #canvas></canvas>
 </div>
-<div id="mainDoc">
+<div id="mainDoc" style="display:none">
 </div>
 
 <app-modal id="custom-modal-1">
@@ -41,3 +58,10 @@
   <button (click)="closeModal('custom-modal-1');">Close</button>
 </app-modal>
 
+<app-modal id="custom-email-modal">
+  <h1>{{modalInfo.header}}</h1>
+  <p>To: <input type="text" [(ngModel)]="modalInfo.to" /></p>
+  <p>Subject : <input type="text" [(ngModel)]="modalInfo.subject" /></p>
+  <p>Message: <input type="text" [(ngModel)]="modalInfo.message" /></p>
+  <button (click)="closeModal('custom-email-modal');">Send</button>
+</app-modal>
