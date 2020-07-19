@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions } from "@angular/http";
 import { BaseService } from "./base.service";
 import { Observable } from "rxjs";
 import { Region } from "src/Models/Region";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
@@ -11,7 +11,7 @@ export class OcrTemplateService extends BaseService {
 
   controllerName = 'OcrTemplate';
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     super();
   }
 
@@ -20,13 +20,17 @@ export class OcrTemplateService extends BaseService {
   }
 
   getTemplate(templateName): Observable<any> {
-    return this.http.get(`${this.webApiUrl}/${this.controllerName}/getTemplate/${templateName}`);
+    return this.http.get(`${this.webApiUrl}/${this.controllerName}/${templateName}`);
   }
 
   saveTemplate(regions: Region[], fileName: string) {
-    debugger;
     return this.http.post(this.webApiUrl + `/${this.controllerName}/${fileName}/Save`, regions);
   }
+
+  deleteTemplate(fileName: string) {
+    return this.http.delete(this.webApiUrl + `/${this.controllerName}/${fileName}`);
+  }
+
 
   uploadDocument(templateName: string, documents: Array<any>) {
 
@@ -35,10 +39,13 @@ export class OcrTemplateService extends BaseService {
       data.append("File", document.file, document.file.name);
     }
 
-    const options = new RequestOptions();
-    options.headers = new Headers();
-    options.headers.set("enctype", "multipart/form-data");
-    options.headers.set("Accept-Encoding", "GZIP");
-    return this.http.post(this.webApiUrl + `/${this.controllerName}/UploadDocument/${templateName}`, data, options);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "enctype": "multipart/form-data",
+        "Accept-Encoding": "GZIP"
+      })
+    };
+
+    return this.http.post(this.webApiUrl + `/${this.controllerName}/${templateName}/UploadDocument`, data, httpOptions);
   }
 }

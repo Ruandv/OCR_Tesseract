@@ -20,7 +20,10 @@
       <a class="nav-link" href="#" (click)="zoomIn()" data-toggle="tooltip" data-placement="top" title="Zoom in"><i
           class="fa fa-search-plus"></i></a>
     </li>
-
+    <li class="nav-item">
+      <a class="nav-link" href="#" (click)="deleteTemplate()" data-toggle="tooltip" data-placement="top" title="Delete"><i
+          class="fa fa-remove"></i></a>
+    </li>
     <li class="nav-item">
       <a class="nav-link" href="#" (click)="saveTemplate()" data-toggle="tooltip" data-placement="top" title="Save"><i
           class="fa fa-save"></i></a>
@@ -41,8 +44,8 @@
       </label>
     </div>
     <ul *ngFor="let region of regions ; let i = index">
-      <li tabindex='-1' [ngClass]="{'border border-primary': isActiveRegion(i)}" (dblclick)="setDescription(i)"
-        (keydown)="regionKeyDown($event,i)" (click)="setActive(i)">{{i}}. {{region|json}} {{region.regionType}}</li>
+      <li *ngIf="region.regionType == regionType" tabindex='-1' [ngClass]="{'border border-primary': isActiveRegion(i)}" (dblclick)="setDescription(i)"
+        (keydown)="regionKeyDown($event,i)" (click)="setActive(i)">{{i}}. {{region.description}} - {{region.regionType}}</li>
     </ul>
   </div>
   <div class="coordinate disabled">X: {{MyX| number:'3.1-1' }}</div>

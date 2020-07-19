@@ -34,15 +34,15 @@ export class AppComponent implements OnInit {
     this.getTemplates();
   }
   private getTemplates() {
-    this.service.getTemplates().subscribe(x => {
-      this.templates = JSON.parse(x.text());
+    this.service.getTemplates().subscribe((x: any) => {
+      this.templates = x;
     });
   }
   uploadDocument(frm: NgForm): void {
     this.uploadStatusRef.nativeElement.style.display = 'block';
-    this.service.uploadDocument(frm.value.TemplateName, this.documents).subscribe(x => {
-      this.imageSource = "data:image/png;base64," + JSON.parse(x.text()).file;
-      this.title = JSON.parse(x.text()).fileName;
+    this.service.uploadDocument(frm.value.TemplateName, this.documents).subscribe((x: any) => {
+      this.imageSource = "data:image/png;base64," + x.file;
+      this.title = x.fileName;
       this.templateName = this.title;
       this.uploadStatusRef.nativeElement.style.display = 'none';
       this.formRef.nativeElement.style.display = 'none';
@@ -50,8 +50,8 @@ export class AppComponent implements OnInit {
   }
 
   getTemplateImage(template) {
-    this.service.getTemplate(template.templateDescription).subscribe(x => {
-      this.imageSource = "data:image/png;base64," + JSON.parse(x.text());
+    this.service.getTemplate(template.templateDescription).subscribe((x: any) => {
+      this.imageSource = "data:image/png;base64," + x;
       this.regions = template.identificationData as Region[];
       this.templateName = template.templateDescription;
     });

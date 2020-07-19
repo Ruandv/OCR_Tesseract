@@ -40,7 +40,7 @@ namespace OCR_API.Controllers
         }
 
         [HttpGet]
-        [Route("GetTemplate/{templateName}")]
+        [Route("{templateName}")]
         public IActionResult Get(string templateName)
         {
             var imageName = templateName;
@@ -69,8 +69,19 @@ namespace OCR_API.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        [Route("{templateName}")]
+        public async Task<IActionResult> DeleteTemplate(string templateName)
+        {
+            var imageName = templateName;
+            var data = dbContext.Templates.FirstOrDefault(x => x.TemplateDescription == imageName);
+            dbContext.Templates.Remove(data);
+            dbContext.SaveChanges();
+            return Ok();
+        }
+
         [HttpPost]
-        [Route("UploadDocument/{TemplateName}")]
+        [Route("{TemplateName}/UploadDocument")]
         public async Task<IActionResult> UploadDocument(string templateName)
         {
 

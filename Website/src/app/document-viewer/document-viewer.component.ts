@@ -87,7 +87,7 @@ export class DocumentViewerComponent implements AfterViewInit, OnChanges {
   templateSaved = new EventEmitter();
 
   private activeRegion: Region;
-  private regionType: string;
+  public regionType: string;
 
   public width = 600;
   public height = 800;
@@ -175,7 +175,11 @@ export class DocumentViewerComponent implements AfterViewInit, OnChanges {
       ) / 100;
     this.reDrawImage(undefined);
   }
-
+  deleteTemplate() {
+    this.service.deleteTemplate(this.fileName).subscribe(x => {
+      this.templateSaved.emit('Removed');
+    });
+  }
   saveTemplate() {
     this.service.saveTemplate(this.regions, this.fileName).subscribe(x => {
       this.templateSaved.emit('Saved');
@@ -239,7 +243,7 @@ export class DocumentViewerComponent implements AfterViewInit, OnChanges {
     if (!this.isInRegion()) {
       this.activeRegion = new Region();
       this.activeRegion.description = 'Some D';
-      this.activeRegion.index = this.regions.length - 1;
+      this.activeRegion.index = this.regions.length;
       this.activeRegion.regionType = this.regionType;
       this.activeRegion.topLeft = {
         x: this.MyX,
@@ -269,6 +273,7 @@ export class DocumentViewerComponent implements AfterViewInit, OnChanges {
   changeType(type: string) {
     console.log("Type set to " + type);
     this.regionType = type;
+    this.reDrawImage(-1);
   }
 
   isActiveRegion(index): boolean {
@@ -352,10 +357,12 @@ export class DocumentViewerComponent implements AfterViewInit, OnChanges {
 
   drawRegions(activeRegion?: number) {
     this.regions.forEach((element, k) => {
-      if (k === activeRegion) {
-        this.drawOnCanvas(element.topLeft, element.width, element.height, "red");
-      } else {
-        this.drawOnCanvas(element.topLeft, element.width, element.height, "black");
+      if (element.regionType === this.regionType) {
+        if (k === activeRegion) {
+          this.drawOnCanvas(element.topLeft, element.width, element.height, "red");
+        } else {
+          this.drawOnCanvas(element.topLeft, element.width, element.height, "black");
+        }
       }
     });
   }
